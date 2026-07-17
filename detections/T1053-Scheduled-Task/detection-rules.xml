@@ -1,0 +1,26 @@
+<!-- Local Wazuh rules used for this case study. -->
+<group name="windows,security,scheduled_task,mitre,">
+
+  <!-- Refine the built-in Windows Event 4698 rule with the ATT&CK sub-technique. -->
+  <rule id="60228" level="5" overwrite="yes">
+    <if_sid>60103</if_sid>
+    <field name="win.system.eventID">^4698$</field>
+    <description>Scheduled task created: $(win.eventdata.taskName)</description>
+    <options>no_full_log</options>
+    <mitre>
+      <id>T1053.005</id>
+    </mitre>
+  </rule>
+
+  <!-- Raise severity when the task XML invokes a command or script interpreter. -->
+  <rule id="100123" level="8">
+    <if_sid>60228</if_sid>
+    <field name="win.eventdata.taskContent"
+           type="pcre2">(?i)(cmd\.exe|powershell\.exe|pwsh\.exe|wscript\.exe|cscript\.exe)</field>
+    <description>Scheduled task created with command or script interpreter</description>
+    <mitre>
+      <id>T1053.005</id>
+    </mitre>
+  </rule>
+
+</group>

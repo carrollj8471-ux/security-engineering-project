@@ -1,0 +1,23 @@
+# OS and editor noise
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.tmp
+*.log
+
+# Local lab downloads and archives
+*.iso
+*.zip
+*.7z
+*.msi
+*.exe
+
+# Virtual machine artifacts
+*.vmdk
+*.vmem
+*.vmsn
+*.vmss
+*.nvram
+*.vmx.lck/
+
+# Keep portfolio screenshots intentional; do not ignore screenshots by default.

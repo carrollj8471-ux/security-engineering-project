@@ -1,0 +1,7 @@
+item_id,program_area,improvement,priority,owner,status
+IMP-001,Vulnerability Management,Add trend charts for critical finding age,High,Vulnerability Manager,Planned
+IMP-002,Cloud Security,Automate recurring cloud control evidence collection,High,Cloud Security Owner,Planned
+IMP-003,Detection Engineering,Map detections to ATT&CK coverage dashboard,Medium,Detection Engineer,Planned
+IMP-004,DevSecOps,Expand security gates to all priority repositories,High,Application Owner,Planned
+IMP-005,Executive Reporting,Add screenshots to monthly dashboard,Medium,Security Engineering Lead,Planned
+IMP-006,AI Security,Create AI data handling control checklist,Medium,Security Architect,Planned

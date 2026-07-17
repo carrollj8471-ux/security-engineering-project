@@ -1,0 +1,104 @@
+{
+  "_index": "wazuh-alerts-4.x-2026.07.17",
+  "_id": "uzU_bp8B-QA6xLyH4KqV",
+  "_score": 1,
+  "_source": {
+    "agent": {
+      "ip": "192.168.232.134",
+      "name": "WIN11",
+      "id": "002"
+    },
+    "manager": {
+      "name": "wazuh-manager"
+    },
+    "data": {
+      "win": {
+        "eventdata": {
+          "originalFileName": "PowerShell.EXE",
+          "image": "C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe",
+          "product": "Microsoft® Windows® Operating System",
+          "parentProcessGuid": "{4bc15048-89ec-6a56-0702-000000000d00}",
+          "description": "Windows PowerShell",
+          "logonGuid": "{4bc15048-89ec-6a56-c348-400000000000}",
+          "parentCommandLine": "\\\"C:\\\\WINDOWS\\\\system32\\\\cmd.exe\\\"",
+          "processGuid": "{4bc15048-a9ef-6a59-c50d-000000000d00}",
+          "logonId": "0x4048c3",
+          "parentProcessId": "1020",
+          "processId": "13504",
+          "currentDirectory": "C:\\\\Windows\\\\System32\\\\",
+          "utcTime": "2026-07-17 04:05:03.961",
+          "hashes": "MD5=A97E6573B97B44C96122BFA543A82EA1,SHA256=0FF6F2C94BC7E2833A5F7E16DE1622E5DBA70396F31C7D5F56381870317E8C46,IMPHASH=AFACF6DC9041114B198160AAB4D0AE77",
+          "parentImage": "C:\\\\Windows\\\\System32\\\\cmd.exe",
+          "company": "Microsoft Corporation",
+          "commandLine": "powershell.exe  -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command \\\"Write-Output 'Benign T1059.001 rule validation'; Get-Date -Format o\\\"",
+          "integrityLevel": "High",
+          "fileVersion": "10.0.26100.5074 (WinBuild.160101.0800)",
+          "user": "CORP\\\\Administrator",
+          "terminalSessionId": "1",
+          "parentUser": "CORP\\\\Administrator"
+        },
+        "system": {
+          "eventID": "1",
+          "keywords": "0x8000000000000000",
+          "providerGuid": "{5770385f-c22a-43e0-bf4c-06f5698ffbd9}",
+          "level": "4",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "opcode": "0",
+          "message": "\"Process Create:\r\nRuleName: -\r\nUtcTime: 2026-07-17 04:05:03.961\r\nProcessGuid: {4bc15048-a9ef-6a59-c50d-000000000d00}\r\nProcessId: 13504\r\nImage: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\r\nFileVersion: 10.0.26100.5074 (WinBuild.160101.0800)\r\nDescription: Windows PowerShell\r\nProduct: Microsoft® Windows® Operating System\r\nCompany: Microsoft Corporation\r\nOriginalFileName: PowerShell.EXE\r\nCommandLine: powershell.exe  -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command \"Write-Output 'Benign T1059.001 rule validation'; Get-Date -Format o\"\r\nCurrentDirectory: C:\\Windows\\System32\\\r\nUser: CORP\\Administrator\r\nLogonGuid: {4bc15048-89ec-6a56-c348-400000000000}\r\nLogonId: 0x4048C3\r\nTerminalSessionId: 1\r\nIntegrityLevel: High\r\nHashes: MD5=A97E6573B97B44C96122BFA543A82EA1,SHA256=0FF6F2C94BC7E2833A5F7E16DE1622E5DBA70396F31C7D5F56381870317E8C46,IMPHASH=AFACF6DC9041114B198160AAB4D0AE77\r\nParentProcessGuid: {4bc15048-89ec-6a56-0702-000000000d00}\r\nParentProcessId: 1020\r\nParentImage: C:\\Windows\\System32\\cmd.exe\r\nParentCommandLine: \"C:\\WINDOWS\\system32\\cmd.exe\" \r\nParentUser: CORP\\Administrator\"",
+          "version": "5",
+          "systemTime": "2026-07-17T04:05:03.9779910Z",
+          "eventRecordID": "16737",
+          "threadID": "4532",
+          "computer": "WIN11.corp.local",
+          "task": "1",
+          "processID": "3428",
+          "severityValue": "INFORMATION",
+          "providerName": "Microsoft-Windows-Sysmon"
+        }
+      }
+    },
+    "rule": {
+      "firedtimes": 1,
+      "mail": false,
+      "level": 8,
+      "description": "PowerShell executed with suspicious command-line options",
+      "groups": [
+        "windows",
+        "sysmon",
+        "powershell",
+        "mitre"
+      ],
+      "mitre": {
+        "technique": [
+          "PowerShell"
+        ],
+        "id": [
+          "T1059.001"
+        ],
+        "tactic": [
+          "Execution"
+        ]
+      },
+      "id": "100111"
+    },
+    "decoder": {
+      "name": "windows_eventchannel"
+    },
+    "full_log": "{\"win\":{\"system\":{\"providerName\":\"Microsoft-Windows-Sysmon\",\"providerGuid\":\"{5770385f-c22a-43e0-bf4c-06f5698ffbd9}\",\"eventID\":\"1\",\"version\":\"5\",\"level\":\"4\",\"task\":\"1\",\"opcode\":\"0\",\"keywords\":\"0x8000000000000000\",\"systemTime\":\"2026-07-17T04:05:03.9779910Z\",\"eventRecordID\":\"16737\",\"processID\":\"3428\",\"threadID\":\"4532\",\"channel\":\"Microsoft-Windows-Sysmon/Operational\",\"computer\":\"WIN11.corp.local\",\"severityValue\":\"INFORMATION\",\"message\":\"\\\"Process Create:\\r\\nRuleName: -\\r\\nUtcTime: 2026-07-17 04:05:03.961\\r\\nProcessGuid: {4bc15048-a9ef-6a59-c50d-000000000d00}\\r\\nProcessId: 13504\\r\\nImage: C:\\\\Windows\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\\r\\nFileVersion: 10.0.26100.5074 (WinBuild.160101.0800)\\r\\nDescription: Windows PowerShell\\r\\nProduct: Microsoft® Windows® Operating System\\r\\nCompany: Microsoft Corporation\\r\\nOriginalFileName: PowerShell.EXE\\r\\nCommandLine: powershell.exe  -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command \\\"Write-Output 'Benign T1059.001 rule validation'; Get-Date -Format o\\\"\\r\\nCurrentDirectory: C:\\\\Windows\\\\System32\\\\\\r\\nUser: CORP\\\\Administrator\\r\\nLogonGuid: {4bc15048-89ec-6a56-c348-400000000000}\\r\\nLogonId: 0x4048C3\\r\\nTerminalSessionId: 1\\r\\nIntegrityLevel: High\\r\\nHashes: MD5=A97E6573B97B44C96122BFA543A82EA1,SHA256=0FF6F2C94BC7E2833A5F7E16DE1622E5DBA70396F31C7D5F56381870317E8C46,IMPHASH=AFACF6DC9041114B198160AAB4D0AE77\\r\\nParentProcessGuid: {4bc15048-89ec-6a56-0702-000000000d00}\\r\\nParentProcessId: 1020\\r\\nParentImage: C:\\\\Windows\\\\System32\\\\cmd.exe\\r\\nParentCommandLine: \\\"C:\\\\WINDOWS\\\\system32\\\\cmd.exe\\\" \\r\\nParentUser: CORP\\\\Administrator\\\"\"},\"eventdata\":{\"utcTime\":\"2026-07-17 04:05:03.961\",\"processGuid\":\"{4bc15048-a9ef-6a59-c50d-000000000d00}\",\"processId\":\"13504\",\"image\":\"C:\\\\\\\\Windows\\\\\\\\System32\\\\\\\\WindowsPowerShell\\\\\\\\v1.0\\\\\\\\powershell.exe\",\"fileVersion\":\"10.0.26100.5074 (WinBuild.160101.0800)\",\"description\":\"Windows PowerShell\",\"product\":\"Microsoft® Windows® Operating System\",\"company\":\"Microsoft Corporation\",\"originalFileName\":\"PowerShell.EXE\",\"commandLine\":\"powershell.exe  -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command \\\\\\\"Write-Output 'Benign T1059.001 rule validation'; Get-Date -Format o\\\\\\\"\",\"currentDirectory\":\"C:\\\\\\\\Windows\\\\\\\\System32\\\\\\\\\",\"user\":\"CORP\\\\\\\\Administrator\",\"logonGuid\":\"{4bc15048-89ec-6a56-c348-400000000000}\",\"logonId\":\"0x4048c3\",\"terminalSessionId\":\"1\",\"integrityLevel\":\"High\",\"hashes\":\"MD5=A97E6573B97B44C96122BFA543A82EA1,SHA256=0FF6F2C94BC7E2833A5F7E16DE1622E5DBA70396F31C7D5F56381870317E8C46,IMPHASH=AFACF6DC9041114B198160AAB4D0AE77\",\"parentProcessGuid\":\"{4bc15048-89ec-6a56-0702-000000000d00}\",\"parentProcessId\":\"1020\",\"parentImage\":\"C:\\\\\\\\Windows\\\\\\\\System32\\\\\\\\cmd.exe\",\"parentCommandLine\":\"\\\\\\\"C:\\\\\\\\WINDOWS\\\\\\\\system32\\\\\\\\cmd.exe\\\\\\\"\",\"parentUser\":\"CORP\\\\\\\\Administrator\"}}}",
+    "input": {
+      "type": "log"
+    },
+    "@timestamp": "2026-07-17T04:05:04.135Z",
+    "location": "EventChannel",
+    "id": "1784261104.188267",
+    "timestamp": "2026-07-17T00:05:04.135-0400"
+  },
+  "fields": {
+    "timestamp": [
+      "2026-07-17T04:05:04.135Z"
+    ],
+    "@timestamp": [
+      "2026-07-17T04:05:04.135Z"
+    ]
+  }
+}

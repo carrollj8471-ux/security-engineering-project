@@ -1,0 +1,2 @@
+"Name","SamAccountName","UserPrincipalName","DistinguishedName","Enabled"
+"Lab User","lab.user","lab.user@corp.local","CN=Lab User,OU=User,DC=corp,DC=local","True"

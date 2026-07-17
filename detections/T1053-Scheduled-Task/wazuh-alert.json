@@ -1,0 +1,94 @@
+{
+  "_index": "wazuh-alerts-4.x-2026.07.17",
+  "_id": "nw_wcJ8BD7OmgIfI-XTL",
+  "_score": 1,
+  "_source": {
+    "agent": {
+      "ip": "192.168.232.134",
+      "name": "WIN11",
+      "id": "002"
+    },
+    "manager": {
+      "name": "wazuh-manager"
+    },
+    "data": {
+      "win": {
+        "eventdata": {
+          "subjectLogonId": "0x47bf5c",
+          "clientProcessId": "9700",
+          "subjectUserSid": "S-1-5-21-615428073-717688660-1076213546-500",
+          "taskContent": "&lt;?xml version=\\\"1.0\\\" encoding=\\\"UTF-16\\\"?&gt;  &lt;Task version=\\\"1.2\\\" xmlns=\\\"http://schemas.microsoft.com/windows/2004/02/mit/task\\\"&gt;    &lt;RegistrationInfo&gt;      &lt;Date&gt;2026-07-17T12:37:46&lt;/Date&gt;      &lt;Author&gt;CORP\\\\Administrator&lt;/Author&gt;      &lt;URI&gt;\\\\T1053.005-Benign-Control&lt;/URI&gt;    &lt;/RegistrationInfo&gt;    &lt;Triggers&gt;      &lt;TimeTrigger&gt;        &lt;StartBoundary&gt;2026-07-17T23:59:00&lt;/StartBoundary&gt;        &lt;Enabled&gt;true&lt;/Enabled&gt;      &lt;/TimeTrigger&gt;    &lt;/Triggers&gt;    &lt;Principals&gt;      &lt;Principal id=\\\"Author\\\"&gt;        &lt;RunLevel&gt;HighestAvailable&lt;/RunLevel&gt;        &lt;UserId&gt;S-1-5-18&lt;/UserId&gt;      &lt;/Principal&gt;    &lt;/Principals&gt;    &lt;Settings&gt;      &lt;MultipleInstancesPolicy&gt;IgnoreNew&lt;/MultipleInstancesPolicy&gt;      &lt;DisallowStartIfOnBatteries&gt;true&lt;/DisallowStartIfOnBatteries&gt;      &lt;StopIfGoingOnBatteries&gt;true&lt;/StopIfGoingOnBatteries&gt;      &lt;AllowHardTerminate&gt;true&lt;/AllowHardTerminate&gt;      &lt;StartWhenAvailable&gt;false&lt;/StartWhenAvailable&gt;      &lt;RunOnlyIfNetworkAvailable&gt;false&lt;/RunOnlyIfNetworkAvailable&gt;      &lt;IdleSettings&gt;        &lt;Duration&gt;PT10M&lt;/Duration&gt;        &lt;WaitTimeout&gt;PT1H&lt;/WaitTimeout&gt;        &lt;StopOnIdleEnd&gt;true&lt;/StopOnIdleEnd&gt;        &lt;RestartOnIdle&gt;false&lt;/RestartOnIdle&gt;      &lt;/IdleSettings&gt;      &lt;AllowStartOnDemand&gt;true&lt;/AllowStartOnDemand&gt;      &lt;Enabled&gt;true&lt;/Enabled&gt;      &lt;Hidden&gt;false&lt;/Hidden&gt;      &lt;RunOnlyIfIdle&gt;false&lt;/RunOnlyIfIdle&gt;      &lt;WakeToRun&gt;false&lt;/WakeToRun&gt;      &lt;ExecutionTimeLimit&gt;PT72H&lt;/ExecutionTimeLimit&gt;      &lt;Priority&gt;7&lt;/Priority&gt;    &lt;/Settings&gt;    &lt;Actions Context=\\\"Author\\\"&gt;      &lt;Exec&gt;        &lt;Command&gt;C:\\\\Windows\\\\System32\\\\hostname.exe&lt;/Command&gt;      &lt;/Exec&gt;    &lt;/Actions&gt;  &lt;/Task&gt;",
+          "parentProcessId": "12240",
+          "rpcCallClientLocality": "0",
+          "subjectDomainName": "CORP",
+          "clientProcessStartKey": "4503599627371205",
+          "taskName": "\\\\T1053.005-Benign-Control",
+          "fQDN": "WIN11.corp.local",
+          "subjectUserName": "Administrator"
+        },
+        "system": {
+          "eventID": "4698",
+          "keywords": "0x8020000000000000",
+          "providerGuid": "{54849625-5478-4994-a5ba-3e3b0328c30d}",
+          "level": "0",
+          "channel": "Security",
+          "opcode": "0",
+          "message": "\"A scheduled task was created.\r\n\r\nSubject:\r\n\tSecurity ID:\t\tS-1-5-21-615428073-717688660-1076213546-500\r\n\tAccount Name:\t\tAdministrator\r\n\tAccount Domain:\t\tCORP\r\n\tLogon ID:\t\t0x47BF5C\r\n\r\nTask Information:\r\n\tTask Name: \t\t\\T1053.005-Benign-Control\r\n\tTask Content: \t\t<?xml version=\"1.0\" encoding=\"UTF-16\"?>\r\n<Task version=\"1.2\" xmlns=\"http://schemas.microsoft.com/windows/2004/02/mit/task\">\r\n  <RegistrationInfo>\r\n    <Date>2026-07-17T12:37:46</Date>\r\n    <Author>CORP\\Administrator</Author>\r\n    <URI>\\T1053.005-Benign-Control</URI>\r\n  </RegistrationInfo>\r\n  <Triggers>\r\n    <TimeTrigger>\r\n      <StartBoundary>2026-07-17T23:59:00</StartBoundary>\r\n      <Enabled>true</Enabled>\r\n    </TimeTrigger>\r\n  </Triggers>\r\n  <Principals>\r\n    <Principal id=\"Author\">\r\n      <RunLevel>HighestAvailable</RunLevel>\r\n      <UserId>S-1-5-18</UserId>\r\n    </Principal>\r\n  </Principals>\r\n  <Settings>\r\n    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>\r\n    <DisallowStartIfOnBatteries>true</DisallowStartIfOnBatteries>\r\n    <StopIfGoingOnBatteries>true</StopIfGoingOnBatteries>\r\n    <AllowHardTerminate>true</AllowHardTerminate>\r\n    <StartWhenAvailable>false</StartWhenAvailable>\r\n    <RunOnlyIfNetworkAvailable>false</RunOnlyIfNetworkAvailable>\r\n    <IdleSettings>\r\n      <Duration>PT10M</Duration>\r\n      <WaitTimeout>PT1H</WaitTimeout>\r\n      <StopOnIdleEnd>true</StopOnIdleEnd>\r\n      <RestartOnIdle>false</RestartOnIdle>\r\n    </IdleSettings>\r\n    <AllowStartOnDemand>true</AllowStartOnDemand>\r\n    <Enabled>true</Enabled>\r\n    <Hidden>false</Hidden>\r\n    <RunOnlyIfIdle>false</RunOnlyIfIdle>\r\n    <WakeToRun>false</WakeToRun>\r\n    <ExecutionTimeLimit>PT72H</ExecutionTimeLimit>\r\n    <Priority>7</Priority>\r\n  </Settings>\r\n  <Actions Context=\"Author\">\r\n    <Exec>\r\n      <Command>C:\\Windows\\System32\\hostname.exe</Command>\r\n    </Exec>\r\n  </Actions>\r\n</Task>\r\n\r\nOther Information:\r\n\tProcessCreationTime: \t\t4503599627371205\r\n\tClientProcessId: \t\t\t9700\r\n\tParentProcessId: \t\t\t12240\r\n\tFQDN: \t\t0\r\n\t\"",
+          "version": "1",
+          "systemTime": "2026-07-17T16:37:46.5972590Z",
+          "eventRecordID": "293466",
+          "threadID": "9576",
+          "computer": "WIN11.corp.local",
+          "task": "12804",
+          "processID": "828",
+          "severityValue": "AUDIT_SUCCESS",
+          "providerName": "Microsoft-Windows-Security-Auditing"
+        }
+      }
+    },
+    "rule": {
+      "firedtimes": 1,
+      "mail": false,
+      "level": 5,
+      "description": "Scheduled task created: \\\\T1053.005-Benign-Control",
+      "groups": [
+        "windows",
+        "security",
+        "scheduled_task",
+        "mitre"
+      ],
+      "mitre": {
+        "technique": [
+          "Scheduled Task"
+        ],
+        "id": [
+          "T1053.005"
+        ],
+        "tactic": [
+          "Execution",
+          "Persistence",
+          "Privilege Escalation"
+        ]
+      },
+      "id": "60228"
+    },
+    "decoder": {
+      "name": "windows_eventchannel"
+    },
+    "input": {
+      "type": "log"
+    },
+    "@timestamp": "2026-07-17T16:37:47.019Z",
+    "location": "EventChannel",
+    "id": "1784306267.7609594",
+    "timestamp": "2026-07-17T12:37:47.019-0400"
+  },
+  "fields": {
+    "timestamp": [
+      "2026-07-17T16:37:47.019Z"
+    ],
+    "@timestamp": [
+      "2026-07-17T16:37:47.019Z"
+    ]
+  }
+}

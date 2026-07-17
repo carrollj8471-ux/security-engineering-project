@@ -1,0 +1,11 @@
+Domain Controllers,DistinguishedName
+Domain Controllers,"OU=Domain Controllers,DC=corp,DC=local"
+Workstations,"OU=Workstations,DC=corp,DC=local"
+Servers,"OU=Servers,DC=corp,DC=local"
+User,"OU=User,DC=corp,DC=local"
+IT,"OU=IT,DC=corp,DC=local"
+Finance,"OU=Finance,DC=corp,DC=local"
+HR,"OU=HR,DC=corp,DC=local"
+Service Accounts,"OU=Service Accounts,DC=corp,DC=local"
+Security Groups,"OU=Security Groups,DC=corp,DC=local"
+Admins,"OU=Admins,DC=corp,DC=local"

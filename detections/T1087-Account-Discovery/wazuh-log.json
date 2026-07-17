@@ -1,0 +1,111 @@
+Wazuh home
+Discover
+wazuh-alerts-4.x-2026.07.16#ENHwa58BznWxKwpbeAvN
+
+{
+  "_index": "wazuh-alerts-4.x-2026.07.16",
+  "_id": "ENHwa58BznWxKwpbeAvN",
+  "_score": 1,
+  "_source": {
+    "agent": {
+      "ip": "192.168.232.134",
+      "name": "WIN11",
+      "id": "002"
+    },
+    "manager": {
+      "name": "wazuh-manager"
+    },
+    "data": {
+      "win": {
+        "eventdata": {
+          "originalFileName": "query.exe",
+          "image": "C:\\\\Windows\\\\System32\\\\query.exe",
+          "product": "Microsoft® Windows® Operating System",
+          "parentProcessGuid": "{4bc15048-1285-6a59-4a0a-000000000d00}",
+          "description": "MultiUser Query Utility",
+          "logonGuid": "{4bc15048-b7b3-6a56-6730-650200000000}",
+          "parentCommandLine": "\\\"cmd.exe\\\" /c query user",
+          "processGuid": "{4bc15048-1285-6a59-4c0a-000000000d00}",
+          "logonId": "0x2653067",
+          "parentProcessId": "456",
+          "processId": "10280",
+          "currentDirectory": "C:\\\\Users\\\\ADMINI~1\\\\AppData\\\\Local\\\\Temp\\\\",
+          "utcTime": "2026-07-16 17:19:01.649",
+          "hashes": "MD5=97790914262832C7C48516CD2BBF34F6,SHA256=2824145EFA3C6EFDCBD9989B912A0DB72C7AC305DC230583470558D20F97B0FF,IMPHASH=CCC9DA4A55E90DFE34CBCDB066D6A6B3",
+          "parentImage": "C:\\\\Windows\\\\System32\\\\cmd.exe",
+          "company": "Microsoft Corporation",
+          "commandLine": "query  user",
+          "integrityLevel": "High",
+          "fileVersion": "10.0.26100.7623 (WinBuild.160101.0800)",
+          "user": "CORP\\\\Administrator",
+          "terminalSessionId": "1",
+          "parentUser": "CORP\\\\Administrator"
+        },
+        "system": {
+          "eventID": "1",
+          "keywords": "0x8000000000000000",
+          "providerGuid": "{5770385f-c22a-43e0-bf4c-06f5698ffbd9}",
+          "level": "4",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "opcode": "0",
+          "message": "\"Process Create:\r\nRuleName: -\r\nUtcTime: 2026-07-16 17:19:01.649\r\nProcessGuid: {4bc15048-1285-6a59-4c0a-000000000d00}\r\nProcessId: 10280\r\nImage: C:\\Windows\\System32\\query.exe\r\nFileVersion: 10.0.26100.7623 (WinBuild.160101.0800)\r\nDescription: MultiUser Query Utility\r\nProduct: Microsoft® Windows® Operating System\r\nCompany: Microsoft Corporation\r\nOriginalFileName: query.exe\r\nCommandLine: query  user\r\nCurrentDirectory: C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\\r\nUser: CORP\\Administrator\r\nLogonGuid: {4bc15048-b7b3-6a56-6730-650200000000}\r\nLogonId: 0x2653067\r\nTerminalSessionId: 1\r\nIntegrityLevel: High\r\nHashes: MD5=97790914262832C7C48516CD2BBF34F6,SHA256=2824145EFA3C6EFDCBD9989B912A0DB72C7AC305DC230583470558D20F97B0FF,IMPHASH=CCC9DA4A55E90DFE34CBCDB066D6A6B3\r\nParentProcessGuid: {4bc15048-1285-6a59-4a0a-000000000d00}\r\nParentProcessId: 456\r\nParentImage: C:\\Windows\\System32\\cmd.exe\r\nParentCommandLine: \"cmd.exe\" /c query user\r\nParentUser: CORP\\Administrator\"",
+          "version": "5",
+          "systemTime": "2026-07-16T17:19:01.6579506Z",
+          "eventRecordID": "15964",
+          "threadID": "4532",
+          "computer": "WIN11.corp.local",
+          "task": "1",
+          "processID": "3428",
+          "severityValue": "INFORMATION",
+          "providerName": "Microsoft-Windows-Sysmon"
+        }
+      }
+    },
+    "rule": {
+      "firedtimes": 18,
+      "mail": false,
+      "level": 8,
+      "description": "MITRE T1087 - Local or domain account discovery",
+      "groups": [
+        "windows",
+        " sysmon",
+        " mitre",
+        " custom",
+        "discovery",
+        "account_discovery"
+      ],
+      "mitre": {
+        "technique": [
+          "Account Discovery"
+        ],
+        "id": [
+          "T1087"
+        ],
+        "tactic": [
+          "Discovery"
+        ]
+      },
+      "id": "100206"
+    },
+    "decoder": {
+      "name": "windows_eventchannel"
+    },
+    "full_log": "{\"win\":{\"system\":{\"providerName\":\"Microsoft-Windows-Sysmon\",\"providerGuid\":\"{5770385f-c22a-43e0-bf4c-06f5698ffbd9}\",\"eventID\":\"1\",\"version\":\"5\",\"level\":\"4\",\"task\":\"1\",\"opcode\":\"0\",\"keywords\":\"0x8000000000000000\",\"systemTime\":\"2026-07-16T17:19:01.6579506Z\",\"eventRecordID\":\"15964\",\"processID\":\"3428\",\"threadID\":\"4532\",\"channel\":\"Microsoft-Windows-Sysmon/Operational\",\"computer\":\"WIN11.corp.local\",\"severityValue\":\"INFORMATION\",\"message\":\"\\\"Process Create:\\r\\nRuleName: -\\r\\nUtcTime: 2026-07-16 17:19:01.649\\r\\nProcessGuid: {4bc15048-1285-6a59-4c0a-000000000d00}\\r\\nProcessId: 10280\\r\\nImage: C:\\\\Windows\\\\System32\\\\query.exe\\r\\nFileVersion: 10.0.26100.7623 (WinBuild.160101.0800)\\r\\nDescription: MultiUser Query Utility\\r\\nProduct: Microsoft® Windows® Operating System\\r\\nCompany: Microsoft Corporation\\r\\nOriginalFileName: query.exe\\r\\nCommandLine: query  user\\r\\nCurrentDirectory: C:\\\\Users\\\\ADMINI~1\\\\AppData\\\\Local\\\\Temp\\\\\\r\\nUser: CORP\\\\Administrator\\r\\nLogonGuid: {4bc15048-b7b3-6a56-6730-650200000000}\\r\\nLogonId: 0x2653067\\r\\nTerminalSessionId: 1\\r\\nIntegrityLevel: High\\r\\nHashes: MD5=97790914262832C7C48516CD2BBF34F6,SHA256=2824145EFA3C6EFDCBD9989B912A0DB72C7AC305DC230583470558D20F97B0FF,IMPHASH=CCC9DA4A55E90DFE34CBCDB066D6A6B3\\r\\nParentProcessGuid: {4bc15048-1285-6a59-4a0a-000000000d00}\\r\\nParentProcessId: 456\\r\\nParentImage: C:\\\\Windows\\\\System32\\\\cmd.exe\\r\\nParentCommandLine: \\\"cmd.exe\\\" /c query user\\r\\nParentUser: CORP\\\\Administrator\\\"\"},\"eventdata\":{\"utcTime\":\"2026-07-16 17:19:01.649\",\"processGuid\":\"{4bc15048-1285-6a59-4c0a-000000000d00}\",\"processId\":\"10280\",\"image\":\"C:\\\\\\\\Windows\\\\\\\\System32\\\\\\\\query.exe\",\"fileVersion\":\"10.0.26100.7623 (WinBuild.160101.0800)\",\"description\":\"MultiUser Query Utility\",\"product\":\"Microsoft® Windows® Operating System\",\"company\":\"Microsoft Corporation\",\"originalFileName\":\"query.exe\",\"commandLine\":\"query  user\",\"currentDirectory\":\"C:\\\\\\\\Users\\\\\\\\ADMINI~1\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\\",\"user\":\"CORP\\\\\\\\Administrator\",\"logonGuid\":\"{4bc15048-b7b3-6a56-6730-650200000000}\",\"logonId\":\"0x2653067\",\"terminalSessionId\":\"1\",\"integrityLevel\":\"High\",\"hashes\":\"MD5=97790914262832C7C48516CD2BBF34F6,SHA256=2824145EFA3C6EFDCBD9989B912A0DB72C7AC305DC230583470558D20F97B0FF,IMPHASH=CCC9DA4A55E90DFE34CBCDB066D6A6B3\",\"parentProcessGuid\":\"{4bc15048-1285-6a59-4a0a-000000000d00}\",\"parentProcessId\":\"456\",\"parentImage\":\"C:\\\\\\\\Windows\\\\\\\\System32\\\\\\\\cmd.exe\",\"parentCommandLine\":\"\\\\\\\"cmd.exe\\\\\\\" /c query user\",\"parentUser\":\"CORP\\\\\\\\Administrator\"}}}",
+    "input": {
+      "type": "log"
+    },
+    "@timestamp": "2026-07-16T17:19:06.073Z",
+    "location": "EventChannel",
+    "id": "1784222346.2959064",
+    "timestamp": "2026-07-16T13:19:06.073-0400"
+  },
+  "fields": {
+    "timestamp": [
+      "2026-07-16T17:19:06.073Z"
+    ],
+    "@timestamp": [
+      "2026-07-16T17:19:06.073Z"
+    ]
+  }
+}
+

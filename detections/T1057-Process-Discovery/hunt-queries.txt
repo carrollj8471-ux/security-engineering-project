@@ -1,0 +1,49 @@
+Time Frame Window Filter of 10 minutes **Jul 15, 2026 @ 14:20:00.00 - Jul 15, 2026 @ 14:30:00.00** 
+Query 1:
+agent.name:"WIN11"
+
+Purpose:
+Confirm that Wazuh is receiving events from the correct endpoint during the test window
+
+Result:
+Returned current telemetry from WIN11 during the selected 10 minute window, confirming the agent was actively reporting
+
+
+Query 2:
+agent.name:"WIN11" AND data.win.eventdata.image:*tasklist.exe
+
+Purpose:
+Locate tasklist.exe execution associated with T1057 Process Discovery.
+
+Result:
+Returned a Sysmon Process Create event showing C:\Windows\System32\tasklist.exe executed on WIN11
+
+
+Query 3:
+agent.name:"WIN11" AND data.win.eventdata.commandLine:*tasklist*
+
+Purpose:
+Confirm the command line recorded by Sysmon and Wazuh.
+
+Result:
+Confirmed the command line used to launch tasklist.exe during the Atomic Red Team simulation
+
+
+Query 4:
+agent.name:"WIN11" AND data.win.eventdata.parentImage:*powershell.exe
+
+Purpose:
+Identify processes launched by PowerShell during the test.
+
+Result:
+Showed that PowerShell was the parent process responsible for launching the process-discovery command
+
+
+Query 5:
+agent.name:"WIN11" AND data.win.system.eventID:"1"
+
+Purpose:
+Review Sysmon Event ID 1 process-creation activity.
+
+Result:
+Returned Sysmon Event ID 1 process-creation events, including the T1057 tasklist.exe execution 

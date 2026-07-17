@@ -1,0 +1,87 @@
+{
+  "timestamp": "2026-07-17T17:47:14.114-0400",
+  "rule": {
+    "level": 8,
+    "description": "WMI spawned a command or script interpreter",
+    "id": "100132",
+    "mitre": {
+      "id": [
+        "T1047"
+      ],
+      "tactic": [
+        "Execution"
+      ],
+      "technique": [
+        "Windows Management Instrumentation"
+      ]
+    },
+    "firedtimes": 1,
+    "mail": false,
+    "groups": [
+      "windows",
+      "sysmon",
+      "wmi",
+      "mitre"
+    ]
+  },
+  "agent": {
+    "id": "002",
+    "name": "WIN11",
+    "ip": "192.168.232.134"
+  },
+  "manager": {
+    "name": "wazuh-manager"
+  },
+  "id": "1784324834.11145065",
+  "full_log": "{\"win\":{\"system\":{\"providerName\":\"Microsoft-Windows-Sysmon\",\"providerGuid\":\"{5770385f-c22a-43e0-bf4c-06f5698ffbd9}\",\"eventID\":\"1\",\"version\":\"5\",\"level\":\"4\",\"task\":\"1\",\"opcode\":\"0\",\"keywords\":\"0x8000000000000000\",\"systemTime\":\"2026-07-17T21:47:13.8570923Z\",\"eventRecordID\":\"20023\",\"processID\":\"3316\",\"threadID\":\"4844\",\"channel\":\"Microsoft-Windows-Sysmon/Operational\",\"computer\":\"WIN11.corp.local\",\"severityValue\":\"INFORMATION\",\"message\":\"\\\"Process Create:\\r\\nRuleName: -\\r\\nUtcTime: 2026-07-17 21:47:13.849\\r\\nProcessGuid: {4bc15048-a2e1-6a5a-af04-000000001000}\\r\\nProcessId: 9900\\r\\nImage: C:\\\\Windows\\\\System32\\\\cmd.exe\\r\\nFileVersion: 10.0.26100.8737 (WinBuild.160101.0800)\\r\\nDescription: Windows Command Processor\\r\\nProduct: Microsoft® Windows® Operating System\\r\\nCompany: Microsoft Corporation\\r\\nOriginalFileName: Cmd.Exe\\r\\nCommandLine: cmd.exe /c echo Benign T1047 validation 18 > C:\\\\ProgramData\\\\T1047-WMI-validation-18.txt\\r\\nCurrentDirectory: c:\\\\windows\\\\system32\\\\driverstore\\\\filerepository\\\\ntprint.inf_amd64_7426e1b60aa62272\\\\amd64\\\\\\r\\nUser: CORP\\\\Administrator\\r\\nLogonGuid: {4bc15048-54f7-6a5a-5cbf-470000000000}\\r\\nLogonId: 0x47BF5C\\r\\nTerminalSessionId: 1\\r\\nIntegrityLevel: High\\r\\nHashes: MD5=1F4D18374A699452622E80F6D5BB743E,SHA256=65EC268ADD3973B6DCA64222985DA47CAEAEE44A340B0EC1466782914FD743D9,IMPHASH=010B165E4C37F484601D3DBD700C9423\\r\\nParentProcessGuid: {4bc15048-5049-6a5a-5900-000000001000}\\r\\nParentProcessId: 3980\\r\\nParentImage: C:\\\\Windows\\\\System32\\\\wbem\\\\WmiPrvSE.exe\\r\\nParentCommandLine: C:\\\\WINDOWS\\\\system32\\\\wbem\\\\wmiprvse.exe -secured -Embedding\\r\\nParentUser: NT AUTHORITY\\\\NETWORK SERVICE\\\"\"},\"eventdata\":{\"utcTime\":\"2026-07-17 21:47:13.849\",\"processGuid\":\"{4bc15048-a2e1-6a5a-af04-000000001000}\",\"processId\":\"9900\",\"image\":\"C:\\\\\\\\Windows\\\\\\\\System32\\\\\\\\cmd.exe\",\"fileVersion\":\"10.0.26100.8737 (WinBuild.160101.0800)\",\"description\":\"Windows Command Processor\",\"product\":\"Microsoft® Windows® Operating System\",\"company\":\"Microsoft Corporation\",\"originalFileName\":\"Cmd.Exe\",\"commandLine\":\"cmd.exe /c echo Benign T1047 validation 18 &gt; C:\\\\\\\\ProgramData\\\\\\\\T1047-WMI-validation-18.txt\",\"currentDirectory\":\"c:\\\\\\\\windows\\\\\\\\system32\\\\\\\\driverstore\\\\\\\\filerepository\\\\\\\\ntprint.inf_amd64_7426e1b60aa62272\\\\\\\\amd64\\\\\\\\\",\"user\":\"CORP\\\\\\\\Administrator\",\"logonGuid\":\"{4bc15048-54f7-6a5a-5cbf-470000000000}\",\"logonId\":\"0x47bf5c\",\"terminalSessionId\":\"1\",\"integrityLevel\":\"High\",\"hashes\":\"MD5=1F4D18374A699452622E80F6D5BB743E,SHA256=65EC268ADD3973B6DCA64222985DA47CAEAEE44A340B0EC1466782914FD743D9,IMPHASH=010B165E4C37F484601D3DBD700C9423\",\"parentProcessGuid\":\"{4bc15048-5049-6a5a-5900-000000001000}\",\"parentProcessId\":\"3980\",\"parentImage\":\"C:\\\\\\\\Windows\\\\\\\\System32\\\\\\\\wbem\\\\\\\\WmiPrvSE.exe\",\"parentCommandLine\":\"C:\\\\\\\\WINDOWS\\\\\\\\system32\\\\\\\\wbem\\\\\\\\wmiprvse.exe -secured -Embedding\",\"parentUser\":\"NT AUTHORITY\\\\\\\\NETWORK SERVICE\"}}}",
+  "decoder": {
+    "name": "windows_eventchannel"
+  },
+  "data": {
+    "win": {
+      "system": {
+        "providerName": "Microsoft-Windows-Sysmon",
+        "providerGuid": "{5770385f-c22a-43e0-bf4c-06f5698ffbd9}",
+        "eventID": "1",
+        "version": "5",
+        "level": "4",
+        "task": "1",
+        "opcode": "0",
+        "keywords": "0x8000000000000000",
+        "systemTime": "2026-07-17T21:47:13.8570923Z",
+        "eventRecordID": "20023",
+        "processID": "3316",
+        "threadID": "4844",
+        "channel": "Microsoft-Windows-Sysmon/Operational",
+        "computer": "WIN11.corp.local",
+        "severityValue": "INFORMATION",
+        "message": "\"Process Create:\r\nRuleName: -\r\nUtcTime: 2026-07-17 21:47:13.849\r\nProcessGuid: {4bc15048-a2e1-6a5a-af04-000000001000}\r\nProcessId: 9900\r\nImage: C:\\Windows\\System32\\cmd.exe\r\nFileVersion: 10.0.26100.8737 (WinBuild.160101.0800)\r\nDescription: Windows Command Processor\r\nProduct: Microsoft® Windows® Operating System\r\nCompany: Microsoft Corporation\r\nOriginalFileName: Cmd.Exe\r\nCommandLine: cmd.exe /c echo Benign T1047 validation 18 > C:\\ProgramData\\T1047-WMI-validation-18.txt\r\nCurrentDirectory: c:\\windows\\system32\\driverstore\\filerepository\\ntprint.inf_amd64_7426e1b60aa62272\\amd64\\\r\nUser: CORP\\Administrator\r\nLogonGuid: {4bc15048-54f7-6a5a-5cbf-470000000000}\r\nLogonId: 0x47BF5C\r\nTerminalSessionId: 1\r\nIntegrityLevel: High\r\nHashes: MD5=1F4D18374A699452622E80F6D5BB743E,SHA256=65EC268ADD3973B6DCA64222985DA47CAEAEE44A340B0EC1466782914FD743D9,IMPHASH=010B165E4C37F484601D3DBD700C9423\r\nParentProcessGuid: {4bc15048-5049-6a5a-5900-000000001000}\r\nParentProcessId: 3980\r\nParentImage: C:\\Windows\\System32\\wbem\\WmiPrvSE.exe\r\nParentCommandLine: C:\\WINDOWS\\system32\\wbem\\wmiprvse.exe -secured -Embedding\r\nParentUser: NT AUTHORITY\\NETWORK SERVICE\""
+      },
+      "eventdata": {
+        "utcTime": "2026-07-17 21:47:13.849",
+        "processGuid": "{4bc15048-a2e1-6a5a-af04-000000001000}",
+        "processId": "9900",
+        "image": "C:\\\\Windows\\\\System32\\\\cmd.exe",
+        "fileVersion": "10.0.26100.8737 (WinBuild.160101.0800)",
+        "description": "Windows Command Processor",
+        "product": "Microsoft® Windows® Operating System",
+        "company": "Microsoft Corporation",
+        "originalFileName": "Cmd.Exe",
+        "commandLine": "cmd.exe /c echo Benign T1047 validation 18 &gt; C:\\\\ProgramData\\\\T1047-WMI-validation-18.txt",
+        "currentDirectory": "c:\\\\windows\\\\system32\\\\driverstore\\\\filerepository\\\\ntprint.inf_amd64_7426e1b60aa62272\\\\amd64\\\\",
+        "user": "CORP\\\\Administrator",
+        "logonGuid": "{4bc15048-54f7-6a5a-5cbf-470000000000}",
+        "logonId": "0x47bf5c",
+        "terminalSessionId": "1",
+        "integrityLevel": "High",
+        "hashes": "MD5=1F4D18374A699452622E80F6D5BB743E,SHA256=65EC268ADD3973B6DCA64222985DA47CAEAEE44A340B0EC1466782914FD743D9,IMPHASH=010B165E4C37F484601D3DBD700C9423",
+        "parentProcessGuid": "{4bc15048-5049-6a5a-5900-000000001000}",
+        "parentProcessId": "3980",
+        "parentImage": "C:\\\\Windows\\\\System32\\\\wbem\\\\WmiPrvSE.exe",
+        "parentCommandLine": "C:\\\\WINDOWS\\\\system32\\\\wbem\\\\wmiprvse.exe -secured -Embedding",
+        "parentUser": "NT AUTHORITY\\\\NETWORK SERVICE"
+      }
+    }
+  },
+  "location": "EventChannel"
+}

@@ -1,0 +1,12 @@
+<!-- T1047 — Windows Management Instrumentation; validated with Wazuh 4.14.6 on 2026-07-17. -->
+<group name="windows,sysmon,wmi,mitre,">
+  <rule id="100132" level="8">
+    <if_sid>92069</if_sid>
+    <field name="win.eventdata.originalFileName"
+           type="pcre2">(?i)^Cmd\.Exe$</field>
+    <description>WMI spawned a command or script interpreter</description>
+    <mitre>
+      <id>T1047</id>
+    </mitre>
+  </rule>
+</group>

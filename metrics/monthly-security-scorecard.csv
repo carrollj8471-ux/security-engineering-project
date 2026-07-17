@@ -1,0 +1,8 @@
+month,program_area,kpi,value,target,status,notes
+2026-07,Detection Engineering,ATT&CK techniques covered,18,25,Needs Improvement,Expand coverage for high-priority techniques
+2026-07,Vulnerability Management,Critical findings within SLA,72%,90%,At Risk,Critical backlog needs escalation
+2026-07,Cloud Security,Failed high-severity cloud controls,4,0,At Risk,Control owners assigned
+2026-07,DevSecOps,Repositories with security gates,6,10,Needs Improvement,Prioritize critical application repos
+2026-07,Compliance,Baseline controls passing,81%,95%,Needs Improvement,Failed controls added to backlog
+2026-07,Incident Response,Mean time to triage,28 minutes,30 minutes,On Track,Triage automation is improving response time
+2026-07,Risk Management,Open risks older than 30 days,3,0,At Risk,Review exceptions and owner follow-up

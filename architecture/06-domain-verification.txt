@@ -1,0 +1,46 @@
+
+
+AllowedDNSSuffixes                 : {}
+ChildDomains                       : {}
+ComputersContainer                 : CN=Computers,DC=corp,DC=local
+DeletedObjectsContainer            : CN=Deleted Objects,DC=corp,DC=local
+DistinguishedName                  : DC=corp,DC=local
+DNSRoot                            : corp.local
+DomainControllersContainer         : OU=Domain Controllers,DC=corp,DC=local
+DomainMode                         : Windows2016Domain
+DomainSID                          : S-1-5-21-615428073-717688660-1076213546
+ForeignSecurityPrincipalsContainer : CN=ForeignSecurityPrincipals,DC=corp,DC=local
+Forest                             : corp.local
+InfrastructureMaster               : DC01.corp.local
+LastLogonReplicationInterval       : 
+LinkedGroupPolicyObjects           : {cn={36EFE93C-F7D2-41F7-BDBA-7C0777D7F27C},cn=policies,cn=system,DC=cor
+                                     p,DC=local, cn={C067A985-34EE-4E1F-A83B-7E7773D5EB65},cn=policies,cn=sy
+                                     stem,DC=corp,DC=local, cn={7205DA6E-CB93-487F-8518-7C92340EEEC8},cn=pol
+                                     icies,cn=system,DC=corp,DC=local, CN={31B2F340-016D-11D2-945F-00C04FB98
+                                     4F9},CN=Policies,CN=System,DC=corp,DC=local}
+LostAndFoundContainer              : CN=LostAndFound,DC=corp,DC=local
+ManagedBy                          : 
+Name                               : corp
+NetBIOSName                        : CORP
+ObjectClass                        : domainDNS
+ObjectGUID                         : 0b72e494-99b7-47f3-9a42-bcd582fca4bf
+ParentDomain                       : 
+PDCEmulator                        : DC01.corp.local
+PublicKeyRequiredPasswordRolling   : True
+QuotasContainer                    : CN=NTDS Quotas,DC=corp,DC=local
+ReadOnlyReplicaDirectoryServers    : {}
+ReplicaDirectoryServers            : {DC01.corp.local}
+RIDMaster                          : DC01.corp.local
+SubordinateReferences              : {DC=ForestDnsZones,DC=corp,DC=local, 
+                                     DC=DomainDnsZones,DC=corp,DC=local, CN=Configuration,DC=corp,DC=local}
+SystemsContainer                   : CN=System,DC=corp,DC=local
+UsersContainer                     : CN=Users,DC=corp,DC=local
+PropertyNames                      : {AllowedDNSSuffixes, ChildDomains, ComputersContainer, 
+                                     DeletedObjectsContainer...}
+AddedProperties                    : {}
+RemovedProperties                  : {}
+ModifiedProperties                 : {PublicKeyRequiredPasswordRolling}
+PropertyCount                      : 30
+
+
+

@@ -1,0 +1,6 @@
+risk_id,source_repository,title,program_area,severity,owner,status,sla_due,management_action
+RISK-001,Cloud-security-posture,AWS control failure,Cloud Security,High,Cloud Security Owner,Open,2026-07-31,Track remediation and validate after fix
+RISK-002,devsecops-security-pipeline,Pipeline security finding,DevSecOps,High,Application Owner,Open,2026-08-07,Require remediation or approved exception
+RISK-003,detection-engineering-lab,Detection coverage gap,Detection Engineering,Medium,Detection Engineer,In Progress,2026-08-15,Create and validate detection logic
+RISK-004,vulnerability-risk-assessment-dashboard,Critical vulnerability backlog,Vulnerability Management,Critical,System Owner,Open,2026-07-20,Escalate overdue critical findings
+RISK-005,ai-agent-memory-security-lab,AI memory exposure risk,AI Security,High,Security Architect,Review,2026-08-01,Define safeguards and governance controls

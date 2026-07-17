@@ -1,0 +1,106 @@
+{
+  "_index": "wazuh-alerts-4.x-2026.07.15",
+  "_id": "WToHZ58BSo4en3mccpMh",
+  "_score": 1,
+  "_source": {
+    "agent": {
+      "ip": "192.168.232.134",
+      "name": "WIN11",
+      "id": "002"
+    },
+    "manager": {
+      "name": "wazuh-manager"
+    },
+    "data": {
+      "win": {
+        "eventdata": {
+          "originalFileName": "tasklist.exe",
+          "image": "C:\\\\Windows\\\\System32\\\\tasklist.exe",
+          "product": "Microsoft® Windows® Operating System",
+          "parentProcessGuid": "{4bc15048-d0b8-6a57-b507-000000000d00}",
+          "description": "Lists the current running tasks",
+          "logonGuid": "{4bc15048-b7b3-6a56-6730-650200000000}",
+          "parentCommandLine": "\\\"cmd.exe\\\" /c tasklist",
+          "processGuid": "{4bc15048-d0b8-6a57-b707-000000000d00}",
+          "logonId": "0x2653067",
+          "parentProcessId": "8464",
+          "processId": "11060",
+          "currentDirectory": "C:\\\\Users\\\\ADMINI~1\\\\AppData\\\\Local\\\\Temp\\\\",
+          "utcTime": "2026-07-15 18:26:00.592",
+          "hashes": "MD5=8ADD46C82B40A6F635F1406CF28DABA1,SHA256=62800679C55682F2F5F38B3DF9080D12480BEA78B5B8476EACE9DF014F353B14,IMPHASH=1EC449474B2F8125DB72AC9B593E4CA6",
+          "parentImage": "C:\\\\Windows\\\\System32\\\\cmd.exe",
+          "company": "Microsoft Corporation",
+          "commandLine": "tasklist",
+          "integrityLevel": "High",
+          "fileVersion": "10.0.26100.1 (WinBuild.160101.0800)",
+          "user": "CORP\\\\Administrator",
+          "terminalSessionId": "1",
+          "parentUser": "CORP\\\\Administrator"
+        },
+        "system": {
+          "eventID": "1",
+          "keywords": "0x8000000000000000",
+          "providerGuid": "{5770385f-c22a-43e0-bf4c-06f5698ffbd9}",
+          "level": "4",
+          "channel": "Microsoft-Windows-Sysmon/Operational",
+          "opcode": "0",
+          "message": "\"Process Create:\r\nRuleName: -\r\nUtcTime: 2026-07-15 18:26:00.592\r\nProcessGuid: {4bc15048-d0b8-6a57-b707-000000000d00}\r\nProcessId: 11060\r\nImage: C:\\Windows\\System32\\tasklist.exe\r\nFileVersion: 10.0.26100.1 (WinBuild.160101.0800)\r\nDescription: Lists the current running tasks\r\nProduct: Microsoft® Windows® Operating System\r\nCompany: Microsoft Corporation\r\nOriginalFileName: tasklist.exe\r\nCommandLine: tasklist\r\nCurrentDirectory: C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\\r\nUser: CORP\\Administrator\r\nLogonGuid: {4bc15048-b7b3-6a56-6730-650200000000}\r\nLogonId: 0x2653067\r\nTerminalSessionId: 1\r\nIntegrityLevel: High\r\nHashes: MD5=8ADD46C82B40A6F635F1406CF28DABA1,SHA256=62800679C55682F2F5F38B3DF9080D12480BEA78B5B8476EACE9DF014F353B14,IMPHASH=1EC449474B2F8125DB72AC9B593E4CA6\r\nParentProcessGuid: {4bc15048-d0b8-6a57-b507-000000000d00}\r\nParentProcessId: 8464\r\nParentImage: C:\\Windows\\System32\\cmd.exe\r\nParentCommandLine: \"cmd.exe\" /c tasklist\r\nParentUser: CORP\\Administrator\"",
+          "version": "5",
+          "systemTime": "2026-07-15T18:26:00.5988152Z",
+          "eventRecordID": "15430",
+          "threadID": "4532",
+          "computer": "WIN11.corp.local",
+          "task": "1",
+          "processID": "3428",
+          "severityValue": "INFORMATION",
+          "providerName": "Microsoft-Windows-Sysmon"
+        }
+      }
+    },
+    "rule": {
+      "firedtimes": 1,
+      "mail": false,
+      "level": 8,
+      "description": "MITRE T1057 - Process discovery performed",
+      "groups": [
+        "windows",
+        " sysmon",
+        " mitre",
+        " custom",
+        "discovery",
+        "process_discovery"
+      ],
+      "mitre": {
+        "technique": [
+          "Process Discovery"
+        ],
+        "id": [
+          "T1057"
+        ],
+        "tactic": [
+          "Discovery"
+        ]
+      },
+      "id": "100205"
+    },
+    "decoder": {
+      "name": "windows_eventchannel"
+    },
+    "full_log": "{\"win\":{\"system\":{\"providerName\":\"Microsoft-Windows-Sysmon\",\"providerGuid\":\"{5770385f-c22a-43e0-bf4c-06f5698ffbd9}\",\"eventID\":\"1\",\"version\":\"5\",\"level\":\"4\",\"task\":\"1\",\"opcode\":\"0\",\"keywords\":\"0x8000000000000000\",\"systemTime\":\"2026-07-15T18:26:00.5988152Z\",\"eventRecordID\":\"15430\",\"processID\":\"3428\",\"threadID\":\"4532\",\"channel\":\"Microsoft-Windows-Sysmon/Operational\",\"computer\":\"WIN11.corp.local\",\"severityValue\":\"INFORMATION\",\"message\":\"\\\"Process Create:\\r\\nRuleName: -\\r\\nUtcTime: 2026-07-15 18:26:00.592\\r\\nProcessGuid: {4bc15048-d0b8-6a57-b707-000000000d00}\\r\\nProcessId: 11060\\r\\nImage: C:\\\\Windows\\\\System32\\\\tasklist.exe\\r\\nFileVersion: 10.0.26100.1 (WinBuild.160101.0800)\\r\\nDescription: Lists the current running tasks\\r\\nProduct: Microsoft® Windows® Operating System\\r\\nCompany: Microsoft Corporation\\r\\nOriginalFileName: tasklist.exe\\r\\nCommandLine: tasklist\\r\\nCurrentDirectory: C:\\\\Users\\\\ADMINI~1\\\\AppData\\\\Local\\\\Temp\\\\\\r\\nUser: CORP\\\\Administrator\\r\\nLogonGuid: {4bc15048-b7b3-6a56-6730-650200000000}\\r\\nLogonId: 0x2653067\\r\\nTerminalSessionId: 1\\r\\nIntegrityLevel: High\\r\\nHashes: MD5=8ADD46C82B40A6F635F1406CF28DABA1,SHA256=62800679C55682F2F5F38B3DF9080D12480BEA78B5B8476EACE9DF014F353B14,IMPHASH=1EC449474B2F8125DB72AC9B593E4CA6\\r\\nParentProcessGuid: {4bc15048-d0b8-6a57-b507-000000000d00}\\r\\nParentProcessId: 8464\\r\\nParentImage: C:\\\\Windows\\\\System32\\\\cmd.exe\\r\\nParentCommandLine: \\\"cmd.exe\\\" /c tasklist\\r\\nParentUser: CORP\\\\Administrator\\\"\"},\"eventdata\":{\"utcTime\":\"2026-07-15 18:26:00.592\",\"processGuid\":\"{4bc15048-d0b8-6a57-b707-000000000d00}\",\"processId\":\"11060\",\"image\":\"C:\\\\\\\\Windows\\\\\\\\System32\\\\\\\\tasklist.exe\",\"fileVersion\":\"10.0.26100.1 (WinBuild.160101.0800)\",\"description\":\"Lists the current running tasks\",\"product\":\"Microsoft® Windows® Operating System\",\"company\":\"Microsoft Corporation\",\"originalFileName\":\"tasklist.exe\",\"commandLine\":\"tasklist\",\"currentDirectory\":\"C:\\\\\\\\Users\\\\\\\\ADMINI~1\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\\",\"user\":\"CORP\\\\\\\\Administrator\",\"logonGuid\":\"{4bc15048-b7b3-6a56-6730-650200000000}\",\"logonId\":\"0x2653067\",\"terminalSessionId\":\"1\",\"integrityLevel\":\"High\",\"hashes\":\"MD5=8ADD46C82B40A6F635F1406CF28DABA1,SHA256=62800679C55682F2F5F38B3DF9080D12480BEA78B5B8476EACE9DF014F353B14,IMPHASH=1EC449474B2F8125DB72AC9B593E4CA6\",\"parentProcessGuid\":\"{4bc15048-d0b8-6a57-b507-000000000d00}\",\"parentProcessId\":\"8464\",\"parentImage\":\"C:\\\\\\\\Windows\\\\\\\\System32\\\\\\\\cmd.exe\",\"parentCommandLine\":\"\\\\\\\"cmd.exe\\\\\\\" /c tasklist\",\"parentUser\":\"CORP\\\\\\\\Administrator\"}}}",
+    "input": {
+      "type": "log"
+    },
+    "@timestamp": "2026-07-15T18:26:01.021Z",
+    "location": "EventChannel",
+    "id": "1784139961.4121031",
+    "timestamp": "2026-07-15T14:26:01.021-0400"
+  },
+  "fields": {
+    "timestamp": [
+      "2026-07-15T18:26:01.021Z"
+    ],
+    "@timestamp": [
+      "2026-07-15T18:26:01.021Z"
+    ]
+  }
+}

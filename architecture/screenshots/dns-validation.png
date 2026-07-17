@@ -1,0 +1,6 @@
+
+Name                                           Type   TTL   Section    IPAddress                            
+----                                           ----   ---   -------    ---------                            
+corp.local                                     A      600   Answer     192.168.232.10                       
+
+
