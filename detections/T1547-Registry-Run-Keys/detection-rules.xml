@@ -1,0 +1,12 @@
+<!-- T1547.001 — Registry Run Keys / Startup Folder; validated with Wazuh 4.14.6 on 2026-07-18. -->
+<group name="windows,sysmon,registry,persistence,mitre,">
+  <rule id="100141" level="8">
+    <if_sid>92300</if_sid>
+    <field name="win.eventdata.details"
+           type="pcre2">(?i)(cmd|powershell|pwsh|wscript|cscript|mshta|rundll32|regsvr32)\.exe</field>
+    <description>Registry Run key configured to launch a command or script interpreter</description>
+    <mitre>
+      <id>T1547.001</id>
+    </mitre>
+  </rule>
+</group>
