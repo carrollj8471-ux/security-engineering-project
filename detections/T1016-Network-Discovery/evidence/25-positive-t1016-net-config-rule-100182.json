@@ -1,0 +1,89 @@
+{
+  "timestamp": "2026-07-19T18:28:24.645-0400",
+  "rule": {
+    "level": 8,
+    "description": "Windows network configuration enumerated with net.exe",
+    "id": "100182",
+    "mitre": {
+      "id": [
+        "T1016"
+      ],
+      "tactic": [
+        "Discovery"
+      ],
+      "technique": [
+        "System Network Configuration Discovery"
+      ]
+    },
+    "firedtimes": 1,
+    "mail": false,
+    "groups": [
+      "windows",
+      " sysmon",
+      " mitre",
+      " custom",
+      "discovery",
+      "network_configuration_discovery"
+    ]
+  },
+  "agent": {
+    "id": "002",
+    "name": "WIN11",
+    "ip": "192.168.232.134"
+  },
+  "manager": {
+    "name": "wazuh-manager"
+  },
+  "id": "1784500104.6582173",
+  "full_log": "{\"win\":{\"system\":{\"providerName\":\"Microsoft-Windows-Sysmon\",\"providerGuid\":\"{5770385f-c22a-43e0-bf4c-06f5698ffbd9}\",\"eventID\":\"1\",\"version\":\"5\",\"level\":\"4\",\"task\":\"1\",\"opcode\":\"0\",\"keywords\":\"0x8000000000000000\",\"systemTime\":\"2026-07-19T22:28:21.4386412Z\",\"eventRecordID\":\"21805\",\"processID\":\"3608\",\"threadID\":\"5268\",\"channel\":\"Microsoft-Windows-Sysmon/Operational\",\"computer\":\"WIN11.corp.local\",\"severityValue\":\"INFORMATION\",\"message\":\"\\\"Process Create:\\r\\nRuleName: -\\r\\nUtcTime: 2026-07-19 22:28:21.434\\r\\nProcessGuid: {4bc15048-4f85-6a5d-fa09-000000001100}\\r\\nProcessId: 8696\\r\\nImage: C:\\\\Windows\\\\System32\\\\net.exe\\r\\nFileVersion: 10.0.26100.7019 (WinBuild.160101.0800)\\r\\nDescription: Net Command\\r\\nProduct: Microsoft® Windows® Operating System\\r\\nCompany: Microsoft Corporation\\r\\nOriginalFileName: net.exe\\r\\nCommandLine: net  config\\r\\nCurrentDirectory: C:\\\\Users\\\\ADMINI~1\\\\AppData\\\\Local\\\\Temp\\\\\\r\\nUser: CORP\\\\Administrator\\r\\nLogonGuid: {4bc15048-fe6f-6a5a-8b11-210000000000}\\r\\nLogonId: 0x21118B\\r\\nTerminalSessionId: 1\\r\\nIntegrityLevel: High\\r\\nHashes: MD5=8A1E71312BD2AAE202652113049CDBD1,SHA256=BB3E638C8B5B6EF80847E364AEEF2796CAD25D3539CF9B41D3820FA48943E777,IMPHASH=EF46B86C2346DA0A991DE4B78AAF4E75\\r\\nParentProcessGuid: {4bc15048-4f85-6a5d-f309-000000001100}\\r\\nParentProcessId: 13052\\r\\nParentImage: C:\\\\Windows\\\\System32\\\\cmd.exe\\r\\nParentCommandLine: \\\"cmd.exe\\\" /c ipconfig /all & netsh interface show interface & arp -a & nbtstat -n & net config\\r\\nParentUser: CORP\\\\Administrator\\\"\"},\"eventdata\":{\"utcTime\":\"2026-07-19 22:28:21.434\",\"processGuid\":\"{4bc15048-4f85-6a5d-fa09-000000001100}\",\"processId\":\"8696\",\"image\":\"C:\\\\\\\\Windows\\\\\\\\System32\\\\\\\\net.exe\",\"fileVersion\":\"10.0.26100.7019 (WinBuild.160101.0800)\",\"description\":\"Net Command\",\"product\":\"Microsoft® Windows® Operating System\",\"company\":\"Microsoft Corporation\",\"originalFileName\":\"net.exe\",\"commandLine\":\"net  config\",\"currentDirectory\":\"C:\\\\\\\\Users\\\\\\\\ADMINI~1\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\\",\"user\":\"CORP\\\\\\\\Administrator\",\"logonGuid\":\"{4bc15048-fe6f-6a5a-8b11-210000000000}\",\"logonId\":\"0x21118b\",\"terminalSessionId\":\"1\",\"integrityLevel\":\"High\",\"hashes\":\"MD5=8A1E71312BD2AAE202652113049CDBD1,SHA256=BB3E638C8B5B6EF80847E364AEEF2796CAD25D3539CF9B41D3820FA48943E777,IMPHASH=EF46B86C2346DA0A991DE4B78AAF4E75\",\"parentProcessGuid\":\"{4bc15048-4f85-6a5d-f309-000000001100}\",\"parentProcessId\":\"13052\",\"parentImage\":\"C:\\\\\\\\Windows\\\\\\\\System32\\\\\\\\cmd.exe\",\"parentCommandLine\":\"\\\\\\\"cmd.exe\\\\\\\" /c ipconfig /all &amp; netsh interface show interface &amp; arp -a &amp; nbtstat -n &amp; net config\",\"parentUser\":\"CORP\\\\\\\\Administrator\"}}}",
+  "decoder": {
+    "name": "windows_eventchannel"
+  },
+  "data": {
+    "win": {
+      "system": {
+        "providerName": "Microsoft-Windows-Sysmon",
+        "providerGuid": "{5770385f-c22a-43e0-bf4c-06f5698ffbd9}",
+        "eventID": "1",
+        "version": "5",
+        "level": "4",
+        "task": "1",
+        "opcode": "0",
+        "keywords": "0x8000000000000000",
+        "systemTime": "2026-07-19T22:28:21.4386412Z",
+        "eventRecordID": "21805",
+        "processID": "3608",
+        "threadID": "5268",
+        "channel": "Microsoft-Windows-Sysmon/Operational",
+        "computer": "WIN11.corp.local",
+        "severityValue": "INFORMATION",
+        "message": "\"Process Create:\r\nRuleName: -\r\nUtcTime: 2026-07-19 22:28:21.434\r\nProcessGuid: {4bc15048-4f85-6a5d-fa09-000000001100}\r\nProcessId: 8696\r\nImage: C:\\Windows\\System32\\net.exe\r\nFileVersion: 10.0.26100.7019 (WinBuild.160101.0800)\r\nDescription: Net Command\r\nProduct: Microsoft® Windows® Operating System\r\nCompany: Microsoft Corporation\r\nOriginalFileName: net.exe\r\nCommandLine: net  config\r\nCurrentDirectory: C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\\r\nUser: CORP\\Administrator\r\nLogonGuid: {4bc15048-fe6f-6a5a-8b11-210000000000}\r\nLogonId: 0x21118B\r\nTerminalSessionId: 1\r\nIntegrityLevel: High\r\nHashes: MD5=8A1E71312BD2AAE202652113049CDBD1,SHA256=BB3E638C8B5B6EF80847E364AEEF2796CAD25D3539CF9B41D3820FA48943E777,IMPHASH=EF46B86C2346DA0A991DE4B78AAF4E75\r\nParentProcessGuid: {4bc15048-4f85-6a5d-f309-000000001100}\r\nParentProcessId: 13052\r\nParentImage: C:\\Windows\\System32\\cmd.exe\r\nParentCommandLine: \"cmd.exe\" /c ipconfig /all & netsh interface show interface & arp -a & nbtstat -n & net config\r\nParentUser: CORP\\Administrator\""
+      },
+      "eventdata": {
+        "utcTime": "2026-07-19 22:28:21.434",
+        "processGuid": "{4bc15048-4f85-6a5d-fa09-000000001100}",
+        "processId": "8696",
+        "image": "C:\\\\Windows\\\\System32\\\\net.exe",
+        "fileVersion": "10.0.26100.7019 (WinBuild.160101.0800)",
+        "description": "Net Command",
+        "product": "Microsoft® Windows® Operating System",
+        "company": "Microsoft Corporation",
+        "originalFileName": "net.exe",
+        "commandLine": "net  config",
+        "currentDirectory": "C:\\\\Users\\\\ADMINI~1\\\\AppData\\\\Local\\\\Temp\\\\",
+        "user": "CORP\\\\Administrator",
+        "logonGuid": "{4bc15048-fe6f-6a5a-8b11-210000000000}",
+        "logonId": "0x21118b",
+        "terminalSessionId": "1",
+        "integrityLevel": "High",
+        "hashes": "MD5=8A1E71312BD2AAE202652113049CDBD1,SHA256=BB3E638C8B5B6EF80847E364AEEF2796CAD25D3539CF9B41D3820FA48943E777,IMPHASH=EF46B86C2346DA0A991DE4B78AAF4E75",
+        "parentProcessGuid": "{4bc15048-4f85-6a5d-f309-000000001100}",
+        "parentProcessId": "13052",
+        "parentImage": "C:\\\\Windows\\\\System32\\\\cmd.exe",
+        "parentCommandLine": "\\\"cmd.exe\\\" /c ipconfig /all &amp; netsh interface show interface &amp; arp -a &amp; nbtstat -n &amp; net config",
+        "parentUser": "CORP\\\\Administrator"
+      }
+    }
+  },
+  "location": "EventChannel"
+}
