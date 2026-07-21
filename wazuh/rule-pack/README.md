@@ -1,6 +1,6 @@
 # Security Engineering Lab Wazuh Rule Pack
 
-Version **0.1.0** packages seven lab-validated Windows analytics under a dedicated `1101xx` custom-rule range. It is deliberately small: each rule has a case-study source, an ATT&CK mapping, and positive and negative behavioral fixtures.
+Version **0.2.0** packages eight lab-validated Windows analytics under a dedicated `1101xx` custom-rule range. It is deliberately small: each rule has a case-study source, an ATT&CK mapping, and positive and negative behavioral fixtures.
 
 ## Contents
 
@@ -25,6 +25,7 @@ Version **0.1.0** packages seven lab-validated Windows analytics under a dedicat
 | 110105 | 8 | T1547.001 | Run key configured with an interpreter |
 | 110106 | 10 | T1112, T1547.001 | Elevated child classification for the Run-key modification |
 | 110107 | 11 | T1552.001 | Credential-oriented file or command-output search |
+| 110108 | 13 | T1003.001 | Rundll32 and `comsvcs.dll, MiniDump` behavior |
 
 ## Run automated tests
 

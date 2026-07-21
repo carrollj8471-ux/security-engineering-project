@@ -1,0 +1,10 @@
+<group name="windows,sysmon,mitre,custom,">
+  <rule id="100223" level="13">
+    <if_group>sysmon_event1</if_group>
+    <field name="win.eventdata.originalFileName" type="pcre2">(?i)^RUNDLL32\.EXE$</field>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)comsvcs\.dll.*MiniDump</field>
+    <description>MITRE T1003.001 - LSASS-style memory dump via comsvcs MiniDump</description>
+    <mitre><id>T1003.001</id></mitre>
+    <group>credential_access,os_credential_dumping,lsass_memory,</group>
+  </rule>
+</group>

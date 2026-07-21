@@ -1,6 +1,6 @@
 <!--
   Security Engineering Lab Wazuh Rule Pack
-  rule-pack-version: 0.1.0
+  rule-pack-version: 0.2.0
   custom-id-range: 110100-110199
   validated-against: Wazuh 4.14.6
 -->
@@ -75,6 +75,15 @@
       <id>T1552.001</id>
     </mitre>
     <group>credential_access,credentials_in_files,</group>
+  </rule>
+
+  <rule id="110108" level="13">
+    <if_group>sysmon_event1</if_group>
+    <field name="win.eventdata.originalFileName" type="pcre2">(?i)^RUNDLL32\.EXE$</field>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)comsvcs\.dll.*MiniDump</field>
+    <description>LSASS-style memory dump via comsvcs MiniDump</description>
+    <mitre><id>T1003.001</id></mitre>
+    <group>credential_access,os_credential_dumping,lsass_memory,</group>
   </rule>
 
 </group>

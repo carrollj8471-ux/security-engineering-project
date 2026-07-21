@@ -98,6 +98,22 @@
       "expect_not_match": [110107]
     },
     {
+      "name": "T1003.001 positive - comsvcs MiniDump",
+      "parent_sids": [],
+      "groups": ["sysmon_event1"],
+      "fields": { "win.eventdata.originalFileName": "RUNDLL32.EXE", "win.eventdata.commandLine": "rundll32.exe comsvcs.dll, MiniDump 4242 C:\\ProgramData\\T1003-Portfolio-Lab\\benign-decoy.dmp full" },
+      "expect_match": [110108],
+      "expect_not_match": []
+    },
+    {
+      "name": "T1003.001 negative - Control Panel Rundll32",
+      "parent_sids": [],
+      "groups": ["sysmon_event1"],
+      "fields": { "win.eventdata.originalFileName": "RUNDLL32.EXE", "win.eventdata.commandLine": "rundll32.exe shell32.dll,Control_RunDLL" },
+      "expect_match": [],
+      "expect_not_match": [110108]
+    },
+    {
       "name": "Dependency negative - matching field without required parent",
       "parent_sids": [],
       "groups": ["sysmon_event1"],

@@ -2,6 +2,18 @@
 
 All notable changes to this rule pack are documented here. Versions follow semantic versioning: patch for non-behavioral corrections, minor for backward-compatible rule or test additions, and major for incompatible IDs, dependencies, or matching behavior.
 
+## [0.2.0] - 2026-07-21
+
+### Added
+
+- Rule `110108` for T1003.001-style `rundll32.exe` plus `comsvcs.dll, MiniDump` behavior.
+- Positive MiniDump and negative Control Panel Rundll32 fixtures.
+- T1003.001 case-study, runbook, detection artifact, lifecycle metrics, blind spots, response actions, and preserved evidence.
+
+### Changed
+
+- Coverage matrix now treats T1003.001 as validated with a preserved negative control.
+
 ## [0.1.0] - 2026-07-21
 
 ### Added

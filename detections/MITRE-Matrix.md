@@ -7,9 +7,9 @@ This matrix tracks implemented detection engineering coverage separately from pl
 | Metric | Current state |
 |---|---:|
 | Techniques in scope | 25 |
-| Completed case studies | 15 |
-| Planned case studies | 10 |
-| Completed studies with a preserved negative control | 13 |
+| Completed case studies | 16 |
+| Planned case studies | 9 |
+| Completed studies with a preserved negative control | 14 |
 | Completed studies with a documented negative-control gap | 2 |
 | ATT&CK tactics represented by completed studies | 9 |
 
@@ -39,7 +39,6 @@ Planned rows are not counted as implemented detection coverage. Priority reflect
 
 | Priority | Tactic | Technique | Planned focus | Target telemetry | Status |
 |---|---|---|---|---|---|
-| P1 | Credential Access | T1003.001 | LSASS Memory | Sysmon 10; Security telemetry; Defender | Planned |
 | P1 | Defense Evasion | T1070 | Indicator Removal | Security 1102; Sysmon 23/26; PowerShell | Planned |
 | P1 | Impact | T1486 | Data Encrypted for Impact | Sysmon 1/11/23; file-change telemetry | Planned |
 | P1 | Privilege Escalation, Defense Evasion | T1548.002 | Bypass User Account Control | Sysmon 1/12/13; Security 4688 | Planned |
@@ -61,7 +60,7 @@ Because a technique can map to multiple tactics, totals below are non-exclusive.
 | Persistence | 3 | 0 | Valid accounts, scheduled tasks, and Run keys are represented. |
 | Privilege Escalation | 3 | 1 | Behavioral coverage exists; UAC bypass remains a high-value gap. |
 | Defense Evasion | 3 | 4 | Broadest remaining gap area; prioritize impair-defenses and log-clearing cases. |
-| Credential Access | 1 | 2 | Current file-search coverage should be complemented by LSASS and password-store telemetry. |
+| Credential Access | 2 | 1 | File-search and LSASS-style dump coverage are validated; password-store telemetry remains planned. |
 | Discovery | 5 | 3 | Mature coverage; additional discovery studies have lower marginal portfolio value. |
 | Lateral Movement | 1 | 0 | SMB is covered, but an end-to-end remote-services chain would improve depth. |
 | Command and Control | 1 | 0 | Ingress transfer is covered; network analytics remain a potential expansion. |
@@ -76,4 +75,5 @@ Because a technique can map to multiple tactics, totals below are non-exclusive.
 
 ## Recommended next milestone
 
-Complete T1003.001, T1070, T1486, T1548.002, and T1562.001, then build one correlated attack-chain study spanning initial access, execution, credential access, lateral movement, defense evasion, and impact. This produces more portfolio value than completing every remaining discovery technique.
+Complete T1070, T1486, T1548.002, and T1562.001, then build one correlated attack-chain study spanning initial access, execution, credential access, lateral movement, defense evasion, and impact. This produces more portfolio value than completing every remaining discovery technique.
+| Credential Access | T1003.001 | LSASS-style memory dumping | Sysmon 1; Sysmon 10 enrichment | Validated | Preserved | [XML](./T1003-LSASS-Credential-Dumping/detection-rules.xml) | [README](./T1003-LSASS-Credential-Dumping/README.md) |
