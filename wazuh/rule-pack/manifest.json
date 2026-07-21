@@ -1,6 +1,6 @@
 {
   "name": "security-engineering-lab-wazuh-rules",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "status": "lab-validated",
   "minimum_wazuh_version": "4.14.6",
   "custom_rule_id_range": "110100-110199",
@@ -13,8 +13,9 @@
     { "id": 110105, "techniques": ["T1547.001"], "name": "Run key launches command or script interpreter" },
     { "id": 110106, "techniques": ["T1112", "T1547.001"], "name": "Elevated Run-key registry modification" },
     { "id": 110107, "techniques": ["T1552.001"], "name": "Credential-oriented file search" },
-    { "id": 110108, "techniques": ["T1003.001"], "name": "Comsvcs MiniDump behavior" }
+    { "id": 110108, "techniques": ["T1003.001"], "name": "Comsvcs MiniDump behavior" },
+    { "id": 110109, "techniques": ["T1562.001"], "name": "Security-control impairment command" }
   ],
   "external_parent_rules": [60103, 60228, 92069, 92300],
-  "behavioral_fixture_count": 16
+  "behavioral_fixture_count": 18
 }

@@ -2,6 +2,18 @@
 
 All notable changes to this rule pack are documented here. Versions follow semantic versioning: patch for non-behavioral corrections, minor for backward-compatible rule or test additions, and major for incompatible IDs, dependencies, or matching behavior.
 
+## [0.3.0] - 2026-07-21
+
+### Added
+
+- Rule `110109` for action-specific Defender, firewall, security-service, and logging impairment commands.
+- Positive Defender-exclusion and negative read-only Defender-status fixtures.
+- T1562.001 case study, runbook, evidence, lifecycle metrics, tuning decisions, blind spots, and response actions.
+
+### Changed
+
+- Coverage matrix now treats T1562.001 as validated with a preserved negative control.
+
 ## [0.2.0] - 2026-07-21
 
 ### Added

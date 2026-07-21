@@ -7,9 +7,9 @@ This matrix tracks implemented detection engineering coverage separately from pl
 | Metric | Current state |
 |---|---:|
 | Techniques in scope | 25 |
-| Completed case studies | 16 |
-| Planned case studies | 9 |
-| Completed studies with a preserved negative control | 14 |
+| Completed case studies | 17 |
+| Planned case studies | 8 |
+| Completed studies with a preserved negative control | 15 |
 | Completed studies with a documented negative-control gap | 2 |
 | ATT&CK tactics represented by completed studies | 9 |
 
@@ -29,6 +29,7 @@ This matrix tracks implemented detection engineering coverage separately from pl
 | Discovery | T1087.001 | Local Account Discovery | Sysmon 1 | Validated | Gap documented | Hunt/analytic documented | [README](./T1087-Account-Discovery/README.md) |
 | Command and Control | T1105 | Ingress Tool Transfer | Sysmon 1/3/11 | Validated | Preserved | Hunt/analytic documented | [README](./T1105-Ingress-Tool-Transfer/README.md) |
 | Defense Evasion | T1112 | Modify Registry | Sysmon 12/13 | Validated | Preserved | [XML](./T1112-Modify-Registry/detection-rules.xml) | [README](./T1112-Modify-Registry/README.md) |
+| Defense Evasion | T1562.001 | Impair Defenses | Sysmon 1; Defender 5007 | Validated | Preserved | [XML](./T1562-Impair-Defenses/detection-rules.xml) | [README](./T1562-Impair-Defenses/README.md) |
 | Defense Evasion | T1218.011 | Rundll32 Proxy Execution | Sysmon 1 | Validated | Preserved | Wazuh rule documented | [README](./T1218-Signed-Binary-Proxy-Execution/README.md) |
 | Persistence, Privilege Escalation | T1547.001 | Registry Run Keys/Startup Folder | Sysmon 13 | Validated | Preserved | [XML](./T1547-Registry-Run-Keys/detection-rules.xml) | [README](./T1547-Registry-Run-Keys/README.md) |
 | Credential Access | T1552.001 | Credentials in Files | Sysmon 1 | Validated | Preserved | [XML](./T1552-Credentials-in-Files/detection-rules.xml) | [README](./T1552-Credentials-in-Files/README.md) |
@@ -43,7 +44,6 @@ Planned rows are not counted as implemented detection coverage. Priority reflect
 | P1 | Impact | T1486 | Data Encrypted for Impact | Sysmon 1/11/23; file-change telemetry | Planned |
 | P1 | Privilege Escalation, Defense Evasion | T1548.002 | Bypass User Account Control | Sysmon 1/12/13; Security 4688 | Planned |
 | P1 | Credential Access | T1555 | Credentials from Password Stores | Sysmon 1/10; Defender | Planned |
-| P1 | Defense Evasion | T1562.001 | Impair Defenses | Security 4719; Sysmon 1/12/13; service events | Planned |
 | P2 | Discovery | T1049 | System Network Connections Discovery | Sysmon 1; PowerShell | Planned |
 | P2 | Discovery | T1083 | File and Directory Discovery | Sysmon 1; PowerShell | Planned |
 | P2 | Execution | T1106 | Native API | Sysmon process/access telemetry; ETW where available | Planned |
@@ -59,7 +59,7 @@ Because a technique can map to multiple tactics, totals below are non-exclusive.
 | Execution | 3 | 1 | Strong Windows execution coverage across PowerShell, WMI, and scheduled tasks. |
 | Persistence | 3 | 0 | Valid accounts, scheduled tasks, and Run keys are represented. |
 | Privilege Escalation | 3 | 1 | Behavioral coverage exists; UAC bypass remains a high-value gap. |
-| Defense Evasion | 3 | 4 | Broadest remaining gap area; prioritize impair-defenses and log-clearing cases. |
+| Defense Evasion | 4 | 3 | Impair-defenses is validated; prioritize log clearing and UAC-bypass coverage. |
 | Credential Access | 2 | 1 | File-search and LSASS-style dump coverage are validated; password-store telemetry remains planned. |
 | Discovery | 5 | 3 | Mature coverage; additional discovery studies have lower marginal portfolio value. |
 | Lateral Movement | 1 | 0 | SMB is covered, but an end-to-end remote-services chain would improve depth. |
@@ -75,5 +75,5 @@ Because a technique can map to multiple tactics, totals below are non-exclusive.
 
 ## Recommended next milestone
 
-Complete T1070, T1486, T1548.002, and T1562.001, then build one correlated attack-chain study spanning initial access, execution, credential access, lateral movement, defense evasion, and impact. This produces more portfolio value than completing every remaining discovery technique.
+Complete T1070, T1486, and T1548.002, then build one correlated attack-chain study spanning initial access, execution, credential access, lateral movement, defense evasion, and impact. This produces more portfolio value than completing every remaining discovery technique.
 | Credential Access | T1003.001 | LSASS-style memory dumping | Sysmon 1; Sysmon 10 enrichment | Validated | Preserved | [XML](./T1003-LSASS-Credential-Dumping/detection-rules.xml) | [README](./T1003-LSASS-Credential-Dumping/README.md) |

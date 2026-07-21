@@ -1,0 +1,9 @@
+<group name="windows,sysmon,mitre,custom,">
+  <rule id="100213" level="12">
+    <if_group>sysmon_event1</if_group>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)(Set-MpPreference.*Disable|Add-MpPreference.*Exclusion|netsh(\.exe)?\s+advfirewall\s+set.*state\s+off|sc(\.exe)?\s+(stop|config)\s+(WinDefend|Sense|wscsvc)|wevtutil(\.exe)?\s+sl\s+Security\s+/e:false)</field>
+    <description>MITRE T1562 - Security tooling or logging impairment command observed</description>
+    <mitre><id>T1562.001</id></mitre>
+    <group>defense_evasion,impair_defenses,</group>
+  </rule>
+</group>

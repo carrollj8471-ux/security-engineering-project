@@ -114,6 +114,22 @@
       "expect_not_match": [110108]
     },
     {
+      "name": "T1562.001 positive - Defender exclusion added",
+      "parent_sids": [],
+      "groups": ["sysmon_event1"],
+      "fields": { "win.eventdata.commandLine": "powershell.exe -Command Add-MpPreference -ExclusionPath C:\\ProgramData\\T1562-Portfolio-Lab" },
+      "expect_match": [110109],
+      "expect_not_match": []
+    },
+    {
+      "name": "T1562.001 negative - Defender status read",
+      "parent_sids": [],
+      "groups": ["sysmon_event1"],
+      "fields": { "win.eventdata.commandLine": "powershell.exe -Command Get-MpComputerStatus" },
+      "expect_match": [],
+      "expect_not_match": [110109]
+    },
+    {
       "name": "Dependency negative - matching field without required parent",
       "parent_sids": [],
       "groups": ["sysmon_event1"],

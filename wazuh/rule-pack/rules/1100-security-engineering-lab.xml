@@ -1,6 +1,6 @@
 <!--
   Security Engineering Lab Wazuh Rule Pack
-  rule-pack-version: 0.2.0
+  rule-pack-version: 0.3.0
   custom-id-range: 110100-110199
   validated-against: Wazuh 4.14.6
 -->
@@ -84,6 +84,14 @@
     <description>LSASS-style memory dump via comsvcs MiniDump</description>
     <mitre><id>T1003.001</id></mitre>
     <group>credential_access,os_credential_dumping,lsass_memory,</group>
+  </rule>
+
+  <rule id="110109" level="12">
+    <if_group>sysmon_event1</if_group>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)(Set-MpPreference.*Disable|Add-MpPreference.*Exclusion|netsh(\.exe)?\s+advfirewall\s+set.*state\s+off|sc(\.exe)?\s+(stop|config)\s+(WinDefend|Sense|wscsvc)|wevtutil(\.exe)?\s+sl\s+Security\s+/e:false)</field>
+    <description>Security tooling or logging impairment command observed</description>
+    <mitre><id>T1562.001</id></mitre>
+    <group>defense_evasion,impair_defenses,</group>
   </rule>
 
 </group>
