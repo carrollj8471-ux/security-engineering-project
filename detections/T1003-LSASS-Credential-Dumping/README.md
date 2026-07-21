@@ -22,7 +22,11 @@ A renamed Notepad process acted as an isolated LSASS decoy. `rundll32.exe` invok
 
 ![Positive endpoint telemetry](evidence/016-t1003-benign-decoy-minidump-process-create.png)
 
+*Figure 1. Sysmon Event `1`, record `25265`, preserves the Rundll32, Comsvcs MiniDump, isolated dump path, user, and PowerShell parent.*
+
 ![Positive Wazuh alert](evidence/017-t1003-wazuh-rule-100223-positive-alert.png)
+
+*Figure 2. Wazuh rule `100223`, level `13`, classifies fresh positive activity as T1003.001.*
 
 ## Objective and hypothesis
 
@@ -48,7 +52,20 @@ The test copied Notepad to `C:\\ProgramData\\T1003-Portfolio-Lab\\lsass.exe`, st
 
 Sysmon Event `1`, record `25265`, recorded `C:\\Windows\\System32\\rundll32.exe`, original filename `RUNDLL32.EXE`, the `comsvcs.dll, MiniDump` command line, PowerShell parent, high integrity, and `CORP\\Administrator` user.
 
+| Field | Observed value |
+|---|---|
+| Image | `C:\\Windows\\System32\\rundll32.exe` |
+| Original filename | `RUNDLL32.EXE` |
+| Command behavior | `comsvcs.dll, MiniDump` |
+| Dump destination | `C:\\ProgramData\\T1003-Portfolio-Lab\\benign-decoy.dmp` |
+| Parent image | `C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe` |
+| User | `CORP\\Administrator` |
+| Integrity | High |
+| Event record | `25265` |
+
 ![Cleanup evidence](evidence/020-t1003-cleanup-and-configuration-restoration.png)
+
+*Figure 3. Cleanup confirms removal of the test directory and filter while Sysmon and Wazuh Agent remain running.*
 
 ## Wazuh hunt and collection validation
 
@@ -71,6 +88,34 @@ agent.name:"WIN11" AND rule.id:"100223"
 
 The manager rule `100214` was also corrected from invalid group `sysmon_event10` to `sysmon_event_10`. The validated primary analytic remains Event `1` rule `100223`.
 
+### Validated rule path
+
+```text
+Sysmon Event ID 1
+└── sysmon_event1 group
+    ├── 100210 — signed-binary proxy execution context (initial event)
+    └── 100223 — comsvcs MiniDump behavior (T1003.001)
+```
+
+### Final rule
+
+```xml
+<rule id="100223" level="13">
+  <if_group>sysmon_event1</if_group>
+  <field name="win.eventdata.originalFileName"
+         type="pcre2">(?i)^RUNDLL32\.EXE$</field>
+  <field name="win.eventdata.commandLine"
+         type="pcre2">(?i)comsvcs\.dll.*MiniDump</field>
+  <description>MITRE T1003.001 - LSASS-style memory dump via comsvcs MiniDump</description>
+  <mitre>
+    <id>T1003.001</id>
+  </mitre>
+  <group>credential_access,os_credential_dumping,lsass_memory,</group>
+</rule>
+```
+
+The versioned rule pack contains the same field logic as portable rule `110108`. The case-study ID records the live manager validation; the `1101xx` ID avoids collisions for repeatable deployment.
+
 ## Positive validation
 
 The positive path passed end to end: safety assertions passed, the decoy dump was created, Sysmon preserved the command, Wazuh ingested it, and rule `100223` produced a level `13` T1003.001 alert.
@@ -81,11 +126,28 @@ The control reused Rundll32, the same user, parent, host, and telemetry source b
 
 ![Negative-control telemetry](evidence/018-t1003-negative-control-rundll32-telemetry.png)
 
+*Figure 4. The comparable Rundll32 control remains observable and is classified under T1218.011.*
+
 ![No T1003 control alert](evidence/019-t1003-negative-control-no-credential-dumping-alert.png)
+
+*Figure 5. The Control Panel invocation does not satisfy rule `100223`.*
 
 ## False positives and triage
 
 Potential legitimate sources include approved diagnostics, application crash collection, incident-response tooling, and administrator-created process dumps. Triage the full command, target PID and image, dump destination, user, integrity, parent process, remote origin, ticket/change window, subsequent archive creation, and outbound transfer. Escalate unexpected execution against LSASS, execution from unusual parents, or dump staging in user-writable or network locations.
+
+## Analyst response workflow
+
+When rule `100223` or packaged rule `110108` fires, the analyst should:
+
+1. Confirm the endpoint, user, timestamp, Rundll32 image identity, parent process, and complete command line.
+2. Resolve the target PID at event time and determine whether it was the real LSASS process or another process.
+3. Identify the dump path, file owner, size, hashes, and any subsequent rename, compression, copy, or deletion.
+4. Check for remote-session, service, scheduled-task, WMI, PowerShell, or management-tool activity that explains the execution.
+5. Review adjacent Sysmon Event `10`, EDR, Defender, and Security telemetry for process-access or credential-protection evidence.
+6. Validate whether an approved diagnostic, incident-response collection, or change ticket explains the behavior.
+7. If real LSASS targeting is unauthorized, isolate the host, preserve volatile evidence, secure the dump, and begin credential-exposure assessment.
+8. Hunt for reuse of exposed credentials, explicit-credential events, lateral movement, privilege escalation, and persistence.
 
 ## Engineering considerations
 
@@ -114,22 +176,36 @@ The decoy process was stopped; the dump and lab directory were removed; the pre-
 
 ## Findings
 
-1. Endpoint protection correctly prevented the initial real-LSASS test; bypassing it was unnecessary.
-2. Event `10` collection was an observed blind spot even after careful configuration work.
-3. Event `1` retained enough behavioral context for a precise `comsvcs MiniDump` analytic.
-4. The negative control demonstrated discrimination between general Rundll32 use and dump behavior.
-5. T1218 and T1003 mappings are complementary: the same execution can represent proxy execution and credential dumping.
+### 1. Endpoint protection preserved the safety boundary
+
+The initial real-LSASS handle request was blocked. The case study did not disable LSA protection or weaken Defender controls to force a result.
+
+### 2. Event 10 was an observed telemetry blind spot
+
+The decoy handle opened successfully, but Event `10` remained absent after filter correction, provider activation, and reboot. This limitation is preserved as evidence rather than hidden.
+
+### 3. Event 1 supported a precise behavioral analytic
+
+The signed binary identity plus `comsvcs.dll.*MiniDump` retained enough intent for a narrow T1003.001 rule without depending on the unavailable ProcessAccess event.
+
+### 4. The negative control demonstrated tested discrimination
+
+The same Rundll32 binary, user, host, parent class, and telemetry source remained visible under rule `100152`; only the MiniDump behavior was absent, and rule `100223` did not fire.
+
+### 5. T1218 and T1003 context is complementary
+
+The original event matched signed-binary proxy execution before the dedicated rule was added. Analysts should retain both the execution mechanism and credential-access objective during triage.
 
 ## Evidence inventory
 
 | Artifact | Purpose |
 |---|---|
-| `001`–`015` screenshots | Baseline and Event 10 troubleshooting record |
-| `016-t1003-benign-decoy-minidump-process-create.png` | Positive Sysmon Event `1` |
-| `017-t1003-wazuh-rule-100223-positive-alert.png` | Positive Wazuh T1003.001 alert |
-| `018-t1003-negative-control-rundll32-telemetry.png` | Control ingestion under T1218.011 |
-| `019-t1003-negative-control-no-credential-dumping-alert.png` | Control excluded from T1003 rule |
-| `020-t1003-cleanup-and-configuration-restoration.png` | Cleanup and service health |
+| `001`–`015` screenshots | Baseline, protected access, configuration analysis, and Event 10 troubleshooting record |
+| [016-t1003-benign-decoy-minidump-process-create.png](evidence/016-t1003-benign-decoy-minidump-process-create.png) | Positive Sysmon Event `1` |
+| [017-t1003-wazuh-rule-100223-positive-alert.png](evidence/017-t1003-wazuh-rule-100223-positive-alert.png) | Positive Wazuh T1003.001 alert |
+| [018-t1003-negative-control-rundll32-telemetry.png](evidence/018-t1003-negative-control-rundll32-telemetry.png) | Control ingestion under T1218.011 |
+| [019-t1003-negative-control-no-credential-dumping-alert.png](evidence/019-t1003-negative-control-no-credential-dumping-alert.png) | Control excluded from T1003 rule |
+| [020-t1003-cleanup-and-configuration-restoration.png](evidence/020-t1003-cleanup-and-configuration-restoration.png) | Cleanup and service health |
 
 ## Reproduction
 
