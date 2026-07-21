@@ -1,13 +1,13 @@
 # MITRE ATT&CK Detection Engineering Case Study
 
-**Portfolio:** Security Engineering Portfolio  
-**Project:** Active Directory Attack & Defense Lab  
-**Case Study:** 02  
-**Technique:** T1057  
-**Technique Name:** Process Discovery  
-**Tactic:** Discovery  
-**Status:** Completed  
-**Date Started:** 2026-07-15  
+**Portfolio:** Security Engineering Portfolio
+**Project:** Active Directory Attack & Defense Lab
+**Case Study:** 02
+**Technique:** T1057
+**Technique Name:** Process Discovery
+**Tactic:** Discovery
+**Status:** Completed
+**Date Started:** 2026-07-15
 **Author:** Josh Carroll
 
 ## 1. MITRE ATT&CK Information
@@ -19,7 +19,7 @@
 
 Process Discovery involves identifying processes currently running on a system. An adversary may use this information to identify security products, administrative utilities, privileged applications, backup software, or other targets that influence follow-on activity.
 
-## 2. Executive Summary
+## Result
 
 This case study validates the ability of Microsoft Sysmon and Wazuh to capture process-enumeration activity on the domain-joined WIN11 endpoint.
 
@@ -27,13 +27,13 @@ A controlled Atomic Red Team simulation was used to execute a Windows process-di
 
 The exercise evaluates endpoint visibility, detection latency, threat-hunting capability, and the operational context required to distinguish legitimate administration from suspicious reconnaissance.
 
-**Final Result:** 
+**Final Result:**
 
 ## 3. Attack Scenario
 
 Assume a threat actor has gained interactive access to WIN11 using a valid domain account. Before attempting credential access, defense evasion, or privilege escalation, the actor enumerates running processes to identify security software, administrative tools, backup applications, and other processes of interest.
 
-## 4. Detection Objective
+## Objective and hypothesis
 
 Detect process-enumeration activity executed on WIN11 and verify that:
 
@@ -42,7 +42,7 @@ Detect process-enumeration activity executed on WIN11 and verify that:
 3. Wazuh makes the event available for threat hunting.
 4. The analyst can identify the user, parent process, command line, host, and execution time.
 
-## 5. Lab Environment
+## Lab environment
 
 | Component | Value |
 |---|---|
@@ -59,14 +59,14 @@ Detect process-enumeration activity executed on WIN11 and verify that:
 
 **Figure 1.** Pre-test validation confirming the WIN11 endpoint, logged-on user, system time, and operational status of Sysmon and the Wazuh agent prior to executing the Process Discovery simulation.
 
-## 6. Attack Simulation
+## Safe simulation
 
 - **Tool:** Atomic Red Team
 - **Technique:** T1057
 - **Selected Test Number:** 9
 - **Test Name:** Launch Taskmgr from cmd to view running processes
 - **Supported Platform:** Windows
-- **Executor:** T1057-9 
+- **Executor:** T1057-9
 - **Reason Selected:** The test uses a native Windows process-enumeration utility and is suitable for validating process-creation telemetry.
 
 **Evidence**
@@ -96,17 +96,17 @@ Invoke-AtomicTest T1057 `
   -PathToAtomicsFolder "C:\AtomicRedTeam\atomics" `
   -TestNumbers 2
   ```
-**Execution Time:** 14:26  
+**Execution Time:** 14:26
 **Endpoint:** WIN11
 **User:** WIN11/Administrator
 **Execution Result:** Success
-**Observed Command:** "executing test: T1057-2 Process Discovery - tasklist.." 
+**Observed Command:** "executing test: T1057-2 Process Discovery - tasklist.."
 **Evidence**
 ![](04-t1057-execution.png) - Shows test execution and command output
 
 **Figure 4.** Successful execution of the Atomic Red Team Process Discovery simulation. The PowerShell session shows the Invoke-AtomicTest command, execution status, and generated command output used to validate telemetry collection.
 
-## 9. Actual Sysmon Telemetry
+## Endpoint telemetry
 
 | Field | Observed Value |
 |---|---|
@@ -126,7 +126,7 @@ Invoke-AtomicTest T1057 `
 
 **Figure 5.** Sysmon Event ID 1 (Process Create) generated during the Process Discovery simulation. The event captures the executable path, command line, parent process, user context, process identifiers, and execution timestamp used during forensic analysis.
 
-## 10. Wazuh Validation
+## Positive validation
 
 | Field | Observed Value |
 |---|---|
@@ -149,11 +149,11 @@ Invoke-AtomicTest T1057 `
 | Process ID | 11060 |
 | Detection Status | Successfully Detected |
 **Evidence**
- - ![](<06-wazuh-event (2).png>)
+ - ![](06-wazuh-event.png)
 
  **Figure 6.** Expanded Wazuh alert generated from Sysmon telemetry. Custom Rule **100205** identified the execution of **tasklist.exe** as **MITRE ATT&CK T1057 – Process Discovery**, assigning the event a severity level of **8**.
 
-## 11. Threat Hunting
+## Wazuh hunt and collection validation
 
 | Query | Purpose | Result |
 |---|---|---|
@@ -163,11 +163,11 @@ Invoke-AtomicTest T1057 `
 | `agent.name:"WIN11" AND data.win.eventdata.parentImage:*powershell.exe` | Identify the parent process | Showed that PowerShell launched the discovery process. |
 | `agent.name:"WIN11" AND data.win.system.eventID:"1"` | Review Sysmon process creation | Returned Event ID 1 records, including the `tasklist.exe` event generated by the simulation. |
 **Evidence**
-![](<07-threat-hunting (2).png>) 
+![](07-threat-hunting.png)
 
 **Figure 7.** Wazuh Threat Hunting results showing successful retrieval of Process Discovery events from the WIN11 endpoint. Analyst queries confirmed Sysmon Event ID 1 telemetry, command-line execution, parent process, and ATT&CK-aligned detection.
 
-## 12. Hunt Findings
+## Findings
 
 ### Summary
 
@@ -242,7 +242,7 @@ No additional suspicious discovery commands or post-exploitation activity were o
 
 **Figure 8.** MITRE ATT&CK mapping for the Process Discovery simulation. Wazuh Rule **100205** successfully classified the activity as **T1057 – Process Discovery** under the **Discovery** tactic, validating the custom ATT&CK-based detection rule.
 
-## 14. Detection Analysis
+## Troubleshooting and detection engineering
 
 The Atomic Red Team T1057 Process Discovery simulation successfully validated end-to-end detection capabilities within the Enterprise Active Directory Attack & Defense Laboratory.
 
@@ -259,7 +259,7 @@ This exercise demonstrates successful implementation of Detection Engineering co
 - Analyst visibility through Wazuh Threat Hunting
 - End-to-end validation of Process Discovery detection
 
-## 15. False Positives
+## False positives and triage
 
 Execution of `tasklist.exe` is not inherently malicious and is commonly associated with legitimate administrative, troubleshooting, monitoring, and support activity.
 
@@ -307,7 +307,7 @@ No unexpected false positives were observed during the controlled test window. T
 
 In a production environment, `tasklist.exe` execution alone should generally be treated as low to moderate confidence. The event becomes more significant when combined with suspicious user context, unusual parent processes, multiple discovery commands, or follow-on malicious activity.
 
-## 16. Security Engineering Improvements
+## Engineering considerations
 
 The current detection successfully identifies execution of `tasklist.exe`; however, adversaries frequently perform process discovery using multiple native utilities and scripting environments. Detection coverage can be expanded by correlating additional process enumeration commands such as `Get-Process`, `wmic process`, `taskmgr.exe`, and PowerShell-based enumeration.
 
@@ -319,3 +319,23 @@ The current detection successfully identifies execution of `tasklist.exe`; howev
 - Develop Sigma rules equivalent to Wazuh Rule 100205 for cross-platform portability.
 - Measure Mean Time to Detect (MTTD) for all Discovery techniques.
 - Expand ATT&CK coverage metrics to track validation status across the Discovery tactic.
+
+## Negative control
+
+A separate negative-control result was not preserved for this earlier case study. This is an evidence limitation, not a claimed pass; future reruns should execute a similar benign command that omits the detection-specific indicator.
+
+## Cleanup
+
+No cleanup transcript was preserved for this earlier case study. Before rerunning, verify that test artifacts from the documented simulation are absent; remove only the explicitly named benign artifacts created by the test.
+
+## Timeline
+
+Use the timestamps and record identifiers in the endpoint and Wazuh evidence as the authoritative validation timeline.
+
+## Evidence inventory
+
+Evidence is stored in this case-study directory and referenced inline where available. The screenshots and exported records shown in this README are the authoritative artifacts for the completed validation.
+
+## Reproduction
+
+Repeat the documented safe simulation, confirm the endpoint event first, then run the documented Wazuh hunt and verify the expected rule identifier. Execute the negative control separately and clean up only the named test artifacts.

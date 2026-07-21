@@ -301,18 +301,6 @@ The same binaries executed without `/svc` or `query` did not trigger the T1007 r
 - The missing screenshot `02-t1007-test-details-and-prerequisites.png` means prerequisite review is described but not visually evidenced.
 - Production tuning requires baselining administrators, management tools, monitoring agents, and maintenance automation.
 
-## Skills demonstrated
-
-- Atomic Red Team execution and cleanup;
-- Sysmon Event ID `1` analysis;
-- Wazuh archive and alert-index validation;
-- process command-line and parent-child investigation;
-- existing-rule and child-rule analysis;
-- PCRE2 argument matching;
-- MITRE ATT&CK mapping;
-- positive and negative validation;
-- evidence-backed technical documentation.
-
 ## Evidence inventory
 
 | Artifact | Purpose |
@@ -338,7 +326,7 @@ The same binaries executed without `/svc` or `query` did not trigger the T1007 r
 | `17-positive-t1007-sc-rule-100171.json` | Raw sc.exe alert |
 | `17-t1007-cleanup-validation.png` | Cleanup validation |
 
-## Reproduction and references
+## Reproduction
 
 The validated procedure is included in [`T1007-Service-Discovery-Lab-Runbook.md`](T1007-Service-Discovery-Lab-Runbook.md).
 

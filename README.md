@@ -49,7 +49,11 @@ Start with these added artifacts:
 - [Threat Hunting Guide](documentation/Threat-Hunting-Guide.md)
 - [Enterprise Detection Engineering Capstone](reports/Enterprise-Detection-Engineering-Capstone.md)
 - [Wazuh Threat Hunting Queries](wazuh/threat-hunting-queries.md)
+- [Versioned Wazuh Rule Pack](wazuh/rule-pack/README.md)
 - [Sysmon Event Reference](sysmon/event-reference.md)
 - [Security KPI Catalog](metrics/security-kpi-catalog.md)
+- [Detection Lifecycle Metrics and Decision Register](metrics/detection-lifecycle-metrics.md)
+- [Lab Security Architecture Diagram](diagrams/lab-security-architecture.md)
+- [Detection Engineering Data-Flow Diagram](diagrams/detection-data-flow.md)
 - [Enterprise Risk Register](risk-management/enterprise-risk-register.csv)
 <!-- portfolio-merge:end -->

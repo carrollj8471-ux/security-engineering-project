@@ -4,8 +4,7 @@
 
 A benign PowerShell simulation was captured by Sysmon but initially produced no dedicated Wazuh alert. I built and validated a two-stage Wazuh detection mapped to MITRE ATT&CK `T1059.001`, then corrected two unrelated rules that misclassified `dsregcmd.exe` as Windows Command Shell execution. The final positive test generated the intended level 8 alert, while the negative control remained available as raw telemetry without triggering either false-positive rule.
 
-## Executive summary
-
+## Case summary
 This lab focused on the difference between collecting telemetry and generating a useful detection. Sysmon successfully recorded the original PowerShell execution as Event ID 1, and Wazuh archived the event. PowerShell Script Block Logging was also available. However, the original behavior did not generate a dedicated PowerShell alert or ATT&CK mapping.
 
 I added a baseline PowerShell process rule and a higher-severity child rule for suspicious command-line options. Both rules map the observed behavior to `T1059.001 – PowerShell`. During validation, I also found that a custom CMD rule matched `dsregcmd.exe` because its regular expression only anchored the end of `cmd.exe`. A separate Wazuh rule, `92052`, produced the same type of false positive. I corrected the custom match and added a narrow child-rule suppression for the exact `dsregcmd.exe` filename.
@@ -56,7 +55,7 @@ Observed marker-file SHA-256:
 
 *Figure 1. Benign PowerShell simulation launched from Command Prompt, showing successful marker-file creation and the returned SHA-256 hash.*
 
-## Endpoint evidence
+## Endpoint telemetry
 
 Sysmon recorded the simulation as Event ID 1 at `2026-07-17 03:36:54.251 UTC` (`2026-07-16 23:36:54 EDT`). The event established:
 
@@ -77,7 +76,7 @@ Sysmon recorded the simulation as Event ID 1 at `2026-07-17 03:36:54.251 UTC` (`
 
 This proved the endpoint generated the required telemetry. It did not prove Wazuh had indexed the event or generated an alert.
 
-## Initial Wazuh hunt
+## Wazuh hunt and collection validation
 
 The hunt began with progressively narrower dashboard queries:
 
@@ -105,7 +104,7 @@ The broad Event ID 1 query returned two alerts, but neither represented the Powe
 
 Direct review of `/var/ossec/logs/archives/archives.json` established that Wazuh had received the original Sysmon Event ID 1 and later PowerShell Event ID 4104 telemetry. The original PowerShell command was therefore collected, but it was absent from `alerts.json`. This was a rule-coverage gap rather than a collection failure.
 
-## False-positive discovery
+## False positives and triage
 
 Expanding the first custom CMD alert showed that the process was actually `dsregcmd.exe`, launched by `svchost.exe` as `NT AUTHORITY\SYSTEM`. It was unrelated to the PowerShell simulation.
 
@@ -128,7 +127,7 @@ The original match was:
 
 Because the expression only anchored the end of the filename, it matched both `cmd.exe` and `dsregcmd.exe`.
 
-## Detection engineering changes
+## Troubleshooting and detection engineering
 
 ### PowerShell detection
 
@@ -223,7 +222,7 @@ Rule `100111` fired once at level 8 and added the intended ATT&CK enrichment:
 
 *Figure 7. Custom Wazuh rule `100111` firing at level 8 and mapping the observed activity to MITRE ATT&CK `T1059.001 – PowerShell` under the Execution tactic.*
 
-## Negative-control validation
+## Negative control
 
 The negative control executed `dsregcmd.exe` after both false-positive corrections. Wazuh continued to preserve Sysmon and Windows Security process-creation telemetry. A generic Windows Event ID 4688 rule remained available, but neither the custom CMD rule nor the built-in abnormal-CMD rule generated a new alert.
 
@@ -292,7 +291,7 @@ The positive test proved the new PowerShell rule could fire. The negative test p
 
 The final alert mapped only the demonstrated PowerShell execution to `T1059.001`. The lab did not claim payload delivery, persistence, privilege escalation, command and control, or malicious impact.
 
-## Detection limitations and next improvements
+## Engineering considerations
 
 - PowerShell flags such as `-NonInteractive` and `-ExecutionPolicy Bypass` can appear in legitimate administrative workflows.
 - The rule was validated against Windows PowerShell; PowerShell 7 (`pwsh.exe`) was not tested.
@@ -318,3 +317,15 @@ The final alert mapped only the demonstrated PowerShell execution to `T1059.001`
 ## Conclusion
 
 The lab started with complete endpoint telemetry but no dedicated PowerShell detection. The final implementation produced a level 8 Wazuh alert mapped to `T1059.001`, preserved the full process context needed for investigation, and removed two false-positive paths for `dsregcmd.exe` without discarding the underlying events. The result is a detection that is more visible, more accurately classified, and easier to defend during review.
+
+## Cleanup
+
+No cleanup transcript was preserved for this earlier case study. Before rerunning, verify that test artifacts from the documented simulation are absent; remove only the explicitly named benign artifacts created by the test.
+
+## Evidence inventory
+
+Evidence is stored in this case-study directory and referenced inline where available. The screenshots and exported records shown in this README are the authoritative artifacts for the completed validation.
+
+## Reproduction
+
+Repeat the documented safe simulation, confirm the endpoint event first, then run the documented Wazuh hunt and verify the expected rule identifier. Execute the negative control separately and clean up only the named test artifacts.

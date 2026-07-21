@@ -24,7 +24,7 @@ Discovery
 Reference:
 https://attack.mitre.org/techniques/T1087/001/
 
-# 2. Executive Summary
+## Result
 
 This case study validates the organization's ability to detect Local Account Discovery activity using Microsoft Sysmon and Wazuh.
 
@@ -38,7 +38,7 @@ Assume an attacker has obtained interactive access to WIN11 using valid credenti
 
 Prior to attempting privilege escalation or credential theft, the attacker enumerates local accounts to identify privileged users, default administrator accounts, disabled accounts, and service accounts that may provide additional attack opportunities.
 
-# 4. Detection Objective
+## Objective and hypothesis
 
 Validate that Local Account Discovery activity is detected through:
 
@@ -62,7 +62,7 @@ Analysts should be able to determine:
 - Timestamp
 - ATT&CK Technique
 
-# 5. Lab Environment
+## Lab environment
 
 | Component | Value |
 |------------|-------------|
@@ -75,28 +75,28 @@ Analysts should be able to determine:
 | Wazuh Manager | Ubuntu Server |
 | Test Date | 2026-07-16 |
 
-## 8. Commands Executed
+## Safe simulation
 
 ```powershell
 Invoke-AtomicTest T1087.001 `
   -PathToAtomicsFolder "C:\AtomicRedTeam\atomics" `
   -TestNumbers 8, 9, 10, 11
   ```
-**Execution Time:** 13:07:00.00  
+**Execution Time:** 13:07:00.00
 **Endpoint:** WIN11
 **User:** WIN11/Administrator
 **Execution Result:** Success
-**Observed Command:** "executing test: T1087.001-8 Enumerate all accounts on Windows (Local)" 
+**Observed Command:** "executing test: T1087.001-8 Enumerate all accounts on Windows (Local)"
 
 **Evidence**
-![](02-test-execution.png)
+![](screenshots/02-test-execution.png)
 ### Figure 1. Atomic Red Team Test Execution
 
 **Filename:** `02-test-execution.png`
 
 > **Figure 1.** Atomic Red Team execution of **MITRE ATT&CK T1087.001 – Local Account Discovery** on the WIN11 endpoint. The PowerShell session shows successful execution of the controlled simulation, generating account-enumeration activity for detection validation.
 
-## 9. Actual Sysmon Telemetry
+## Endpoint telemetry
 
 | Field | Observed Value |
 |---|---|
@@ -113,7 +113,7 @@ Invoke-AtomicTest T1087.001 `
 | Process GUID | {4bc15048-1285-6a59-4c0a-000000000d00} |
 
 **Evidence**
-![](04-sysmon-event.png)
+![](screenshots/04-sysmon-event.png)
 ### Figure 3. Sysmon Process Creation Event
 
 **Filename:** `04-sysmon-event.png`
@@ -121,7 +121,7 @@ Invoke-AtomicTest T1087.001 `
 > **Figure 3.** Sysmon Event ID 1 (Process Create) generated during the Local Account Discovery simulation. The event records execution of `query.exe`, including the command line, parent process, executing user, process identifier, and timestamp used during forensic analysis.
 
 
-## 10. Wazuh Validation
+## Positive validation
 
 | Field | Observed Value |
 |---|---|
@@ -145,7 +145,7 @@ Invoke-AtomicTest T1087.001 `
 | Detection Status | Successfully Detected |
 
 **Evidence**
-![](05-wazuh-event.png) 
+![](screenshots/05-wazuh-event.png)
 ![](03-wazuh-dashboard-event.png)
 ### Figure 3. Wazuh Dashboard Detection
 
@@ -159,7 +159,7 @@ Invoke-AtomicTest T1087.001 `
 > **Figure 4.** Expanded Wazuh alert generated from Sysmon telemetry. Custom Rule **100206** identified the activity as **MITRE T1087 – Local or Domain Account Discovery**, assigning a severity level of **8** and mapping the event to the Discovery tactic.
 
 
-## Hunt Findings
+## Wazuh hunt and collection validation
 
 The Local Account Discovery simulation successfully generated Sysmon Process Create telemetry on the `WIN11` endpoint. The Wazuh agent forwarded the events to the Wazuh Manager, where custom detection Rule **100206** identified the activity as Local or Domain Account Discovery.
 
@@ -240,7 +240,7 @@ This rule maps to the parent technique **T1087**. The simulation itself is docum
 
 Domain enumeration using commands such as `net user /domain` would instead map to **T1087.002 – Domain Account Discovery**. :contentReference[oaicite:2]{index=2}
 
-## Detection Analysis
+## Troubleshooting and detection engineering
 
 The Atomic Red Team simulation successfully validated Local Account Discovery detection.
 
@@ -259,7 +259,7 @@ The exercise demonstrated successful visibility into account enumeration activit
 7. Determine whether the activity is associated with an approved administrative task.
 8. Escalate if unauthorized activity is identified.
 
-## False Positives
+## False positives and triage
 
 Legitimate execution of account-discovery commands may occur during:
 
@@ -282,7 +282,7 @@ Legitimate execution of account-discovery commands may occur during:
 - Exclude approved management tools.
 - Prioritize alerts on servers and domain controllers.
 
-## 17. Timeline
+## Timeline
 
 | Time (Local) | Event | Source | Details |
 |--------------|-------|--------|---------|
@@ -334,10 +334,30 @@ Threat hunting confirmed that the activity originated from the authorized `CORP\
 - Exclude approved management tools.
 - Prioritize alerts on servers and domain controllers.
 
-## Security Engineering Improvements
+## Engineering considerations
 
 - Create ATT&CK-mapped detection rules for all account-enumeration commands.
 - Correlate multiple Discovery techniques within a five-minute window.
 - Develop Sigma rules equivalent to custom Wazuh detections.
 - Measure detection latency for Discovery techniques.
 - Expand ATT&CK coverage reporting across the Discovery tactic.
+
+## Negative control
+
+A separate negative-control result was not preserved for this earlier case study. This is an evidence limitation, not a claimed pass; future reruns should execute a similar benign command that omits the detection-specific indicator.
+
+## Cleanup
+
+No cleanup transcript was preserved for this earlier case study. Before rerunning, verify that test artifacts from the documented simulation are absent; remove only the explicitly named benign artifacts created by the test.
+
+## Findings
+
+The case study demonstrates the result stated above within the documented lab conditions. Conclusions should not be extended to telemetry sources or execution variants that were not tested.
+
+## Evidence inventory
+
+Evidence is stored in this case-study directory and referenced inline where available. The screenshots and exported records shown in this README are the authoritative artifacts for the completed validation.
+
+## Reproduction
+
+Repeat the documented safe simulation, confirm the endpoint event first, then run the documented Wazuh hunt and verify the expected rule identifier. Execute the negative control separately and clean up only the named test artifacts.

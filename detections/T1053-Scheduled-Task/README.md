@@ -10,7 +10,7 @@
 **Date:** 2026-07-17  
 **Author:** Josh Carroll
 
-## 1. Executive Summary
+## Result
 
 This case study validates the ability of Windows Security auditing, Sysmon, and Wazuh to identify scheduled-task creation on the domain-joined WIN11 endpoint and distinguish a task containing a command interpreter from a direct native-executable task.
 
@@ -20,7 +20,7 @@ The initial Wazuh event used built-in rule `60228`, level 4, with the broader `T
 
 **Final result:** Scheduled-task creation was collected, detected, mapped to T1053.005, and validated with both positive and negative controls.
 
-## 2. MITRE ATT&CK Information
+## MITRE ATT&CK mapping
 
 | Field | Value |
 |---|---|
@@ -34,7 +34,7 @@ The initial Wazuh event used built-in rule `60228`, level 4, with the broader `T
 
 The mapping describes the mechanism demonstrated in the lab. The benign marker command did not establish malicious intent, compromise, or an adversary-controlled persistence channel.
 
-## 3. Objective and Detection Hypothesis
+## Objective and hypothesis
 
 The objective was to determine whether the lab could:
 
@@ -48,7 +48,7 @@ The objective was to determine whether the lab could:
 
 **Hypothesis:** If an administrator creates a scheduled task while the **Audit Other Object Access Events** success policy is enabled, Windows should generate Event ID 4698. Wazuh should detect the creation, and the higher-severity rule should fire only when `taskContent` contains a configured interpreter.
 
-## 4. Lab Environment
+## Lab environment
 
 | Component | Observed value |
 |---|---|
@@ -72,7 +72,7 @@ The initial check confirmed that Task Scheduler, Sysmon, and the Wazuh agent wer
 
 *Figure 1. Endpoint readiness checks, highlighting running Task Scheduler, Sysmon, and Wazuh services, recent Sysmon telemetry, and the initial `No Auditing` setting that had to be corrected before testing.*
 
-## 5. Safe Simulation
+## Safe simulation
 
 Success auditing was enabled for the required subcategory:
 
@@ -114,7 +114,7 @@ The task was run on demand. The marker file was created at `2026-07-17 01:36:20 
 
 *Figure 3. Successful task execution, highlighting the task action, marker-file creation, validation text, and SHA-256 used to confirm that the scheduled action ran.*
 
-## 6. Endpoint Evidence
+## Endpoint telemetry
 
 Windows generated Event ID 4698 at `2026-07-17 01:35:14 EDT` for the original task. The event established:
 
@@ -142,7 +142,7 @@ Sysmon also recorded supporting Event ID 1 activity around task creation and exe
 
 *Figure 5. Supporting endpoint telemetry, showing the `cmd.exe` action in the task XML and nearby Sysmon Process Create events available for process-level investigation.*
 
-## 7. Threat-Hunting Methodology
+## Wazuh hunt and collection validation
 
 The hunt narrowed from general endpoint activity to the decisive task and command fields.
 
@@ -175,7 +175,7 @@ The hunt narrowed from general endpoint activity to the decisive task and comman
 
 The failed `schtasks.exe` image query was retained as a limitation rather than reported as proof that no such process existed. The available screenshot showed only that the specific Wazuh query returned no results in its selected time range.
 
-## 8. Initial Detection Gap
+## Initial detection gap
 
 The initial Event ID 4698 telemetry was collected successfully, but built-in rule `60228` produced a generic level-4 alert mapped to the broader parent technique `T1053 – Scheduled Task/Job`. This established collection and baseline alerting, but it did not provide the desired sub-technique specificity or interpreter-aware severity.
 
@@ -186,7 +186,7 @@ The detection objective therefore required two improvements:
 
 The initial Wazuh event is preserved in [`wazuh-event.json`](evidence/wazuh-event.json).
 
-## 9. Detection Engineering
+## Troubleshooting and detection engineering
 
 The built-in Event ID 4698 rule was overridden locally to retain its event relationship while applying the specific ATT&CK mapping. A child rule inspected the decoded `taskContent` field for command and script interpreters.
 
@@ -220,7 +220,7 @@ The deployable XML is included in [`detection-rules.xml`](detection-rules.xml).
 
 The rule treats interpreter use as suspicious context, not proof of maliciousness. Scheduled tasks that invoke command or scripting engines are common in administration and software deployment, so environment-specific allowlisting and action review remain necessary.
 
-## 10. Positive Detection Validation
+## Positive validation
 
 After the rules were loaded, a fresh positive test created `\T1053.005-Benign-Lab-07`. Windows recorded Event ID 4698 at `2026-07-17 12:30:44 EDT`, and Wazuh generated the final alert at `12:30:45.354 EDT`.
 
@@ -257,7 +257,7 @@ After the rules were loaded, a fresh positive test created `\T1053.005-Benign-La
 
 The complete positive alert is preserved in [`12-positive-alert-rule-100123.json`](evidence/12-positive-alert-rule-100123.json).
 
-## 11. Negative-Control Validation
+## Negative control
 
 The negative control created `\T1053.005-Benign-Control` with a direct action of `C:\Windows\System32\hostname.exe`. The task retained the same scheduled-task mechanism and `SYSTEM` run context but did not invoke a configured command or scripting interpreter.
 
@@ -273,7 +273,7 @@ Wazuh generated the overridden baseline rule `60228` at level 5 and mapped it to
 
 The baseline control alert is preserved in [`wazuh-alert.json`](evidence/wazuh-alert.json).
 
-## 12. Investigation Timeline
+## Timeline
 
 All times below are Eastern Daylight Time (UTC-04:00).
 
@@ -291,7 +291,7 @@ All times below are Eastern Daylight Time (UTC-04:00).
 | 2026-07-17 12:39 | Wazuh | Rule `100123` control query returned no results | Figure 14 | The higher-severity analytic distinguished the direct executable from interpreter use. |
 | 2026-07-17 12:42:28 | Windows Security | Event ID 4699 recorded for both test tasks | Figure 16 | Local cleanup was confirmed. |
 
-## 13. Findings
+## Findings
 
 ### Finding 1: Scheduled-task creation was fully observable
 
@@ -313,7 +313,7 @@ Sysmon process events and Wazuh command-line alerts supported execution analysis
 
 Both tasks were deleted successfully, subsequent `schtasks.exe /Query` commands returned `The system cannot find the file specified`, and Windows generated Event ID 4699 for each deletion.
 
-## 14. Cleanup
+## Cleanup
 
 The lab and control tasks were deleted, and follow-up queries confirmed that neither remained registered:
 
@@ -337,7 +337,7 @@ Windows generated Event ID 4699 at `12:42:28 EDT` for both `\T1053.005-Benign-Co
 
 *Figure 16. Local task-deletion evidence, showing Event ID 4699 for both the positive test and negative-control task.*
 
-## 15. Detection Analysis
+## False positives and triage
 
 ### Detection value
 
@@ -379,7 +379,7 @@ An analyst should review:
 4. Add process-creation detections for `schtasks.exe` and Task Scheduler RPC clients without treating their absence as proof that no task was created.
 5. Baseline recurring vendor and operating-system tasks before deploying the analytic broadly.
 
-## 16. Limitations
+## Limitations
 
 - The simulation was intentionally benign and did not demonstrate compromise, payload delivery, credential access, lateral movement, or command-and-control activity.
 - The elevated rule identifies configured interpreter names anywhere in `taskContent`; legitimate administrative tasks can therefore match.
@@ -388,8 +388,20 @@ An analyst should review:
 - Windows Event ID 4699 confirmed deletion locally, but no Wazuh 4699 result was supplied; SIEM-side deletion collection is therefore not claimed.
 - Several validation attempts occurred while troubleshooting audit policy and rule inheritance. Only the evidence-backed final positive and negative results are treated as detection validation.
 
-## 18. Final Assessment
+## Conclusion
 
 The lab met its detection-engineering objective. Windows generated detailed scheduled-task audit telemetry, Wazuh collected and decoded the events, and the final rules produced an ATT&CK-mapped level-8 alert when the task action contained `cmd.exe`. The direct `hostname.exe` control remained visible at level 5 without triggering the elevated analytic.
 
 The result demonstrates more than telemetry collection: it shows a complete workflow from audit-policy readiness and safe simulation through hunt refinement, rule development, positive validation, negative control, ATT&CK mapping, and cleanup.
+
+## Engineering considerations
+
+Keep the analytic scoped to stable event fields and behavior-specific indicators. Revalidate after changes to Sysmon, Wazuh decoders, local rules, endpoint policy, or index mappings.
+
+## Evidence inventory
+
+Evidence is stored in this case-study directory and referenced inline where available. The screenshots and exported records shown in this README are the authoritative artifacts for the completed validation.
+
+## Reproduction
+
+Repeat the documented safe simulation, confirm the endpoint event first, then run the documented Wazuh hunt and verify the expected rule identifier. Execute the negative control separately and clean up only the named test artifacts.

@@ -61,8 +61,7 @@ Sysmon recorded the change as Event ID `13` with event type `SetValue`. The loca
 
 *Figure 3. Local Sysmon Event ID `13`, highlighting the Run-key target, complete marker command, modifying PowerShell process, and user context.*
 
-## Wazuh hunt and initial detection gap
-
+## Wazuh hunt and collection validation
 The first Wazuh search returned broad Event ID `13` activity, including unrelated registry events. Narrow searches for the exact value and marker returned no alert result.
 
 ```text
@@ -248,8 +247,7 @@ The initial custom conditions were plausible but did not match the live rule pat
 
 The `notepad.exe` value remained visible in the archive but did not trigger the elevated analytic. The rule therefore reduced noise without discarding the underlying telemetry.
 
-## Detection value and tuning
-
+## False positives and triage
 ### Strengths
 
 - uses Sysmon registry telemetry and existing Wazuh context;
@@ -356,9 +354,13 @@ Any allowlist should be documented with an owner, business justification, scope,
 | `17-cleanup-validation (2).png` | Final registry cleanup verification |
 | `14-positive-run-key-alert-rule-100141.json` | Pending local copy of complete positive alert |
 
-## Reproduction and references
+## Reproduction
 
 The complete validated procedure is included in [`T1547.001-Registry-Run-Keys-Lab-Runbook.md`](T1547.001-Registry-Run-Keys-Lab-Runbook.md). The deployed rule is preserved in [`detection-rules.xml`](detection-rules.xml).
 
 - [MITRE ATT&CK T1547.001 – Registry Run Keys / Startup Folder](https://attack.mitre.org/techniques/T1547/001/)
 - [Microsoft Sysmon documentation](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon)
+
+## Engineering considerations
+
+Keep the analytic scoped to stable event fields and behavior-specific indicators. Revalidate after changes to Sysmon, Wazuh decoders, local rules, endpoint policy, or index mappings.

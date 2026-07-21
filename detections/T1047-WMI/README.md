@@ -105,7 +105,7 @@ The decisive signal was the parent-child relationship. The event established tha
 
 *Figure 4. Local Sysmon Process Create evidence, highlighting `cmd.exe`, the marker command, high-integrity user context, and `WmiPrvSE.exe` as the parent process.*
 
-## Wazuh hunt methodology
+## Wazuh hunt and collection validation
 
 The initial hunt used progressive DQL queries. Each query had a different purpose; none was treated as a dedicated detection merely because it returned telemetry.
 
@@ -312,7 +312,7 @@ Rule `100132` inherited from built-in rule `92069`, matched `Cmd.Exe`, and gener
 
 `hostname.exe` was created through WMI and collected, but it did not match rule `100132`. This supported the configured child-image condition without implying that every non-interpreter WMI child is benign.
 
-## Detection value and tuning
+## False positives and triage
 
 ### Strengths
 
@@ -366,9 +366,17 @@ Legitimate management platforms, software deployment systems, monitoring tools, 
 | `13-positive-wmi-alert-rule-100132.json` | Complete positive alert record |
 | `14-cleanup-validation.png` | Displayed artifact-removal checks |
 
-## Reproduction and references
+## Reproduction
 
 The original lab procedure is included in [`T1047-WMI-Lab-Runbook.md`](T1047-WMI-Lab-Runbook.md). The runbook records the initial planned two-rule design; the final implemented rule and troubleshooting outcome are documented in this README.
 
 - [MITRE ATT&CK T1047 – Windows Management Instrumentation](https://attack.mitre.org/techniques/T1047/)
 - [Microsoft Win32_Process Create method](https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/create-method-in-class-win32-process)
+
+## Engineering considerations
+
+Keep the analytic scoped to stable event fields and behavior-specific indicators. Revalidate after changes to Sysmon, Wazuh decoders, local rules, endpoint policy, or index mappings.
+
+## Cleanup
+
+No cleanup transcript was preserved for this earlier case study. Before rerunning, verify that test artifacts from the documented simulation are absent; remove only the explicitly named benign artifacts created by the test.

@@ -333,7 +333,7 @@ No matching Sysmon Event ID `11` was observed. The detection remains functional 
 | `21-server-cleanup-validation.png` | Server cleanup |
 | `22-positive-t1105-alert-json-verification.png` | Positive-alert JSON verification |
 
-## Reproduction and references
+## Reproduction
 
 The complete validated procedure is included in [`T1105-Ingress-Tool-Transfer-Lab-Runbook.md`](T1105-Ingress-Tool-Transfer-Lab-Runbook.md).
 

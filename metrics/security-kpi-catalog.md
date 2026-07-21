@@ -11,6 +11,11 @@ Define management metrics that connect security engineering activity to coverage
 | Detection Engineering | Validated ATT&CK techniques | Count of techniques with current positive telemetry, alert, ATT&CK mapping, and evidence; “documented” alone does not qualify | Detection Engineer | Monthly | 25 validated priority techniques |
 | Detection Engineering | Detection validation pass rate | Successful positive and negative tests divided by tests executed | Detection Engineer | Monthly | ≥95% |
 | Detection Engineering | Telemetry-to-alert gap count | Collected behaviors lacking an intended analytic | Security Lead | Monthly | Downward trend; no unowned High gaps |
+| Detection Engineering | Negative-control pass rate | Comparable controls collected without the elevated analytic divided by controls executed | Detection Engineer | Monthly | ≥95% |
+| Detection Engineering | False-positive rate | Benign dispositions divided by all reviewed detection alerts | SOC Lead | Monthly after operational data is available | Establish baseline, then downward trend without recall loss |
+| Detection Engineering | Validation freshness | Days since the most recent successful positive and negative validation | Detection Engineer | Monthly | ≤90 days or immediately after material change |
+| Detection Engineering | Mean time to detect | Average alert-availability time minus source-event time for validated detections | Detection Engineer | Monthly after timestamp normalization | ≤5 minutes in the lab |
+| Detection Engineering | Tuning regression rate | Tuning changes that fail positive or negative revalidation divided by tuning changes tested | Detection Engineer | Monthly | 0% |
 | Vulnerability Management | Critical findings within SLA | Critical findings remediated or formally accepted before SLA divided by Critical findings due | Vulnerability Manager | Weekly/monthly | ≥90% |
 | Vulnerability Management | Median remediation age | Median days from validated finding to verified closure | Vulnerability Manager | Monthly | Downward trend |
 | Cloud Security | Failed High controls | Open High-severity cloud-control failures after validation | Cloud Owner | Weekly/monthly | 0 |
@@ -44,4 +49,4 @@ Define management metrics that connect security engineering activity to coverage
 
 KPI owners validate results before publication. The Security Lead reviews definitions quarterly and approves methodology changes. Executive reporting should emphasize risk, ownership, trend, and required decisions—not activity volume without outcome context.
 
-The current monthly values are maintained in [`monthly-security-scorecard.csv`](monthly-security-scorecard.csv).
+The current monthly values are maintained in [`monthly-security-scorecard.csv`](monthly-security-scorecard.csv). Per-detection false-positive decisions, blind spots, tuning decisions, response actions, definitions, and data limitations are maintained in [`detection-lifecycle-metrics.md`](detection-lifecycle-metrics.md), with event-level records in [`detection-lifecycle-register.csv`](detection-lifecycle-register.csv).

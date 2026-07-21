@@ -288,17 +288,10 @@ The evidence conclusively proves rule `100152` detects the test command. The gen
 - The negative-control screenshot must be repeated with rule `100152` for complete precision evidence.
 - Duplicate custom IDs `100201–100210` remain unresolved.
 
-## Skills demonstrated
-
-- Sysmon Process Create analysis
-- Wazuh archive and alert comparison
-- DQL threat hunting
-- Wazuh XML rule development and validation
-- Rule hierarchy and load-order troubleshooting
-- MITRE ATT&CK sub-technique mapping
-- Positive and negative detection testing
-- False-positive analysis and tuning design
-
 ## Evidence inventory
 
 All supporting screenshots are stored in [`evidence/`](evidence/). The evidence set includes readiness, simulation, local Sysmon telemetry, Wazuh hunts, archive checks, rule configuration, positive alert details, negative-control evidence, and cleanup validation.
+
+## Reproduction
+
+Repeat the documented safe simulation, confirm the endpoint event first, then run the documented Wazuh hunt and verify the expected rule identifier. Execute the negative control separately and clean up only the named test artifacts.

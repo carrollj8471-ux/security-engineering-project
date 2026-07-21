@@ -318,7 +318,7 @@ The same process lineage did not trigger `100190` when it listed a local path ra
 | `18-positive-t1021-smb-rule-100190.json` | Machine-readable positive alert |
 | `19-t1021-cleanup-validation.png` | Cleanup validation |
 
-## Reproduction and references
+## Reproduction
 
 The validated procedure is included in [`T1021.002-SMB-Admin-Shares-Lab-Runbook.md`](T1021.002-SMB-Admin-Shares-Lab-Runbook.md).
 

@@ -1,0 +1,13 @@
+<group name="windows,authentication,mitre,">
+  <!-- Event 4648 is first classified by built-in rule 60103. -->
+  <rule id="100192" level="8">
+    <if_sid>60103</if_sid>
+    <field name="win.system.eventID">^4648$</field>
+    <field name="win.eventdata.processName" type="pcre2">(?i)(runas|svchost)\.exe$</field>
+    <description>Explicit credentials used through Windows RunAs or Secondary Logon service</description>
+    <mitre>
+      <id>T1078</id>
+    </mitre>
+    <group>defense_evasion,persistence,privilege_escalation,initial_access,valid_accounts,explicit_credentials,</group>
+  </rule>
+</group>

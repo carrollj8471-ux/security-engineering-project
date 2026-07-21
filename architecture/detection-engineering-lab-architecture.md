@@ -70,6 +70,9 @@ This is a single-manager lab, not a high-availability design. Recovery depends o
 
 ## Related Artifacts
 
+- [Detailed Lab Security Architecture Diagram](../diagrams/lab-security-architecture.md)
+- [Detection Engineering Data-Flow Diagram](../diagrams/detection-data-flow.md)
+
 - [Lab Architecture](lab-architecture.md)
 - [Security Data Flow](security-data-flow.md)
 - [Detection Engineering Methodology](../documentation/Detection-Engineering-Methodology.md)

@@ -1,0 +1,23 @@
+<group name="windows,sysmon,registry,persistence,mitre,">
+  <!-- Existing parent: Run key configured to launch an interpreter. -->
+  <rule id="100141" level="8">
+    <if_sid>92300</if_sid>
+    <field name="win.eventdata.details"
+           type="pcre2">(?i)(cmd|powershell|pwsh|wscript|cscript|mshta|rundll32|regsvr32)\.exe</field>
+    <description>Registry Run key configured to launch a command or script interpreter</description>
+    <mitre>
+      <id>T1547.001</id>
+    </mitre>
+  </rule>
+
+  <!-- Place immediately after 100141 in the same group and file. -->
+  <rule id="100212" level="10">
+    <if_sid>100141</if_sid>
+    <description>MITRE T1112 and T1547.001 - Registry Run key or StartupApproved value modified</description>
+    <mitre>
+      <id>T1112</id>
+      <id>T1547.001</id>
+    </mitre>
+    <group>modify_registry,registry_run_keys,</group>
+  </rule>
+</group>

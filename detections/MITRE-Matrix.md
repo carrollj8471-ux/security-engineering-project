@@ -1,49 +1,79 @@
-﻿# MITRE ATT&CK Detection Matrix
+# MITRE ATT&CK Coverage Matrix
 
-This matrix tracks the detection engineering case studies included in this portfolio. Each folder contains a repeatable validation report with simulation steps, telemetry expectations, Wazuh hunting guidance, incident response actions, metrics, and screenshot placeholders.
+This matrix tracks implemented detection engineering coverage separately from planned work. A technique is marked **Validated** only when its case-study README contains a preserved positive-path result. Negative-control status is shown independently so evidence gaps remain visible.
 
-| Tactic | Technique | Name | Case Study | Severity | Priority |
-|---|---|---|---|---|---|
-| Discovery | T1082 | System Information Discovery | [T1082-System-Information-Discovery](./T1082-System-Information-Discovery/) | Medium | P2 |
-| Discovery | T1057 | Process Discovery | [T1057-Process-Discovery](./T1057-Process-Discovery/) | Medium | P2 |
-| Discovery | T1087 | Account Discovery | [T1087-Account-Discovery](./T1087-Account-Discovery/) | Medium | P2 |
-| Discovery | T1007 | Service Discovery | [T1007-Service-Discovery](./T1007-Service-Discovery/) | Medium | P2 |
-| Discovery | T1016 | Network Discovery | [T1016-Network-Discovery](./T1016-Network-Discovery/) | Medium | P2 |
-| Discovery | T1033 | System Owner/User Discovery | [T1033-User-Discovery](./T1033-User-Discovery/) | Low | P3 |
-| Discovery | T1049 | System Network Connections Discovery | [T1049-Network-Connections](./T1049-Network-Connections/) | Medium | P2 |
-| Discovery | T1083 | File and Directory Discovery | [T1083-File-Discovery](./T1083-File-Discovery/) | Medium | P2 |
-| Execution | T1059.001 | PowerShell | [T1059.001-PowerShell](./T1059.001-PowerShell/) | High | P1 |
-| Execution | T1106 | Native API | [T1106-Native-API](./T1106-Native-API/) | High | P1 |
-| Defense Evasion | T1218 | Signed Binary Proxy Execution | [T1218-Signed-Binary-Proxy-Execution](./T1218-Signed-Binary-Proxy-Execution/) | High | P1 |
-| Credential Access | T1003.001 | LSASS Memory | [T1003-LSASS-Credential-Dumping](./T1003-LSASS-Credential-Dumping/) | Critical | P1 |
-| Credential Access | T1552 | Unsecured Credentials | [T1552-Credentials-in-Files](./T1552-Credentials-in-Files/) | High | P1 |
-| Credential Access | T1555 | Credentials from Password Stores | [T1555-Credentials-from-Password-Stores](./T1555-Credentials-from-Password-Stores/) | High | P1 |
-| Persistence | T1547.001 | Registry Run Keys / Startup Folder | [T1547-Registry-Run-Keys](./T1547-Registry-Run-Keys/) | High | P1 |
-| Privilege Escalation | T1548.002 | Bypass User Account Control | [T1548-UAC-Bypass](./T1548-UAC-Bypass/) | High | P1 |
-| Lateral Movement | T1021 | Remote Services | [T1021-Remote-Services](./T1021-Remote-Services/) | High | P1 |
-| Defense Evasion, Persistence, Privilege Escalation, Initial Access | T1078 | Valid Accounts | [T1078-Valid-Accounts](./T1078-Valid-Accounts/) | High | P1 |
-| Defense Evasion | T1562 | Impair Defenses | [T1562-Impair-Defenses](./T1562-Impair-Defenses/) | Critical | P1 |
-| Defense Evasion | T1070 | Indicator Removal | [T1070-Indicator-Removal](./T1070-Indicator-Removal/) | High | P1 |
-| Command and Control | T1105 | Ingress Tool Transfer | [T1105-Ingress-Tool-Transfer](./T1105-Ingress-Tool-Transfer/) | High | P1 |
-| Defense Evasion | T1497 | Virtualization/Sandbox Evasion | [T1497-Virtualization-Checks](./T1497-Virtualization-Checks/) | Medium | P2 |
-| Impact | T1486 | Data Encrypted for Impact | [T1486-Data-Encrypted-for-Impact](./T1486-Data-Encrypted-for-Impact/) | Critical | P1 |
-| Defense Evasion | T1112 | Modify Registry | [T1112-Modify-Registry](./T1112-Modify-Registry/) | High | P1 |
-| Execution | T1047 | Windows Management Instrumentation | [T1047-WMI](./T1047-WMI/) | High | P1 |
+## Portfolio snapshot
 
-## Coverage Summary
-
-| ATT&CK Area | Techniques Included |
+| Metric | Current state |
 |---|---:|
-| Discovery | 8 |
-| Execution | 3 |
-| Credential Access | 3 |
-| Persistence | 1 |
-| Privilege Escalation | 1 |
-| Lateral Movement | 1 |
-| Defense Evasion | 6 |
-| Command and Control | 1 |
-| Impact | 1 |
+| Techniques in scope | 25 |
+| Completed case studies | 15 |
+| Planned case studies | 10 |
+| Completed studies with a preserved negative control | 13 |
+| Completed studies with a documented negative-control gap | 2 |
+| ATT&CK tactics represented by completed studies | 9 |
 
-## Operating Model
+## Implemented coverage
 
-The portfolio is designed to be updated as screenshots, rule files, and false-positive notes are added. A mature version of the matrix should include owner, last validation date, detection status, rule link, false-positive disposition, and coverage gap notes.
+| Tactic | Technique | Detection focus | Primary telemetry | Positive | Negative control | Rule artifact | Case study |
+|---|---|---|---|---|---|---|---|
+| Discovery | T1007 | Service Discovery | Sysmon 1 | Validated | Preserved | Hunt/analytic documented | [README](./T1007-Service-Discovery/README.md) |
+| Discovery | T1016 | System Network Configuration Discovery | Sysmon 1 | Validated | Preserved | Hunt/analytic documented | [README](./T1016-Network-Discovery/README.md) |
+| Lateral Movement | T1021.002 | SMB/Windows Admin Shares | Security 5140/5145; Sysmon 1 | Validated | Preserved | Hunt/analytic documented | [README](./T1021-Remote-Services/README.md) |
+| Execution | T1047 | Windows Management Instrumentation | Sysmon 1 | Validated | Preserved | [XML](./T1047-WMI/detection-rules.xml) | [README](./T1047-WMI/README.md) |
+| Execution, Persistence, Privilege Escalation | T1053.005 | Scheduled Task/Job | Sysmon 1; Task Scheduler telemetry | Validated | Preserved | [XML](./T1053-Scheduled-Task/detection-rules.xml) | [README](./T1053-Scheduled-Task/README.md) |
+| Discovery | T1057 | Process Discovery | Sysmon 1 | Validated | Gap documented | Hunt/analytic documented | [README](./T1057-Process-Discovery/README.md) |
+| Execution | T1059.001 | PowerShell | Sysmon 1; Security 4688 | Validated | Preserved | Wazuh rule documented | [README](./T1059.001-PowerShell/README.md) |
+| Initial Access, Persistence, Privilege Escalation, Defense Evasion | T1078 | Explicit credential use/valid accounts | Security 4624/4648 | Validated | Preserved | [XML](./T1078-Valid-Accounts/detection-rules.xml) | [README](./T1078-Valid-Accounts/README.md) |
+| Discovery | T1082 | System Information Discovery | Sysmon 1 | Validated | Preserved | [XML](./T1082-System-Information-Discovery/detection-rules.xml) | [README](./T1082-System-Information-Discovery/README.md) |
+| Discovery | T1087.001 | Local Account Discovery | Sysmon 1 | Validated | Gap documented | Hunt/analytic documented | [README](./T1087-Account-Discovery/README.md) |
+| Command and Control | T1105 | Ingress Tool Transfer | Sysmon 1/3/11 | Validated | Preserved | Hunt/analytic documented | [README](./T1105-Ingress-Tool-Transfer/README.md) |
+| Defense Evasion | T1112 | Modify Registry | Sysmon 12/13 | Validated | Preserved | [XML](./T1112-Modify-Registry/detection-rules.xml) | [README](./T1112-Modify-Registry/README.md) |
+| Defense Evasion | T1218.011 | Rundll32 Proxy Execution | Sysmon 1 | Validated | Preserved | Wazuh rule documented | [README](./T1218-Signed-Binary-Proxy-Execution/README.md) |
+| Persistence, Privilege Escalation | T1547.001 | Registry Run Keys/Startup Folder | Sysmon 13 | Validated | Preserved | [XML](./T1547-Registry-Run-Keys/detection-rules.xml) | [README](./T1547-Registry-Run-Keys/README.md) |
+| Credential Access | T1552.001 | Credentials in Files | Sysmon 1 | Validated | Preserved | [XML](./T1552-Credentials-in-Files/detection-rules.xml) | [README](./T1552-Credentials-in-Files/README.md) |
+
+## Planned coverage and priorities
+
+Planned rows are not counted as implemented detection coverage. Priority reflects portfolio value and the importance of closing current tactic gaps.
+
+| Priority | Tactic | Technique | Planned focus | Target telemetry | Status |
+|---|---|---|---|---|---|
+| P1 | Credential Access | T1003.001 | LSASS Memory | Sysmon 10; Security telemetry; Defender | Planned |
+| P1 | Defense Evasion | T1070 | Indicator Removal | Security 1102; Sysmon 23/26; PowerShell | Planned |
+| P1 | Impact | T1486 | Data Encrypted for Impact | Sysmon 1/11/23; file-change telemetry | Planned |
+| P1 | Privilege Escalation, Defense Evasion | T1548.002 | Bypass User Account Control | Sysmon 1/12/13; Security 4688 | Planned |
+| P1 | Credential Access | T1555 | Credentials from Password Stores | Sysmon 1/10; Defender | Planned |
+| P1 | Defense Evasion | T1562.001 | Impair Defenses | Security 4719; Sysmon 1/12/13; service events | Planned |
+| P2 | Discovery | T1049 | System Network Connections Discovery | Sysmon 1; PowerShell | Planned |
+| P2 | Discovery | T1083 | File and Directory Discovery | Sysmon 1; PowerShell | Planned |
+| P2 | Execution | T1106 | Native API | Sysmon process/access telemetry; ETW where available | Planned |
+| P2 | Defense Evasion, Discovery | T1497 | Virtualization/Sandbox Evasion | Sysmon 1; WMI/registry telemetry | Planned |
+
+## Tactic-level view
+
+Because a technique can map to multiple tactics, totals below are non-exclusive.
+
+| ATT&CK tactic | Validated techniques | Planned techniques | Coverage observation |
+|---|---:|---:|---|
+| Initial Access | 1 | 0 | Valid-account coverage only; best demonstrated in an attack chain. |
+| Execution | 3 | 1 | Strong Windows execution coverage across PowerShell, WMI, and scheduled tasks. |
+| Persistence | 3 | 0 | Valid accounts, scheduled tasks, and Run keys are represented. |
+| Privilege Escalation | 3 | 1 | Behavioral coverage exists; UAC bypass remains a high-value gap. |
+| Defense Evasion | 3 | 4 | Broadest remaining gap area; prioritize impair-defenses and log-clearing cases. |
+| Credential Access | 1 | 2 | Current file-search coverage should be complemented by LSASS and password-store telemetry. |
+| Discovery | 5 | 3 | Mature coverage; additional discovery studies have lower marginal portfolio value. |
+| Lateral Movement | 1 | 0 | SMB is covered, but an end-to-end remote-services chain would improve depth. |
+| Command and Control | 1 | 0 | Ingress transfer is covered; network analytics remain a potential expansion. |
+| Impact | 0 | 1 | No validated impact technique yet; a safe ransomware simulation is the clearest gap. |
+
+## Coverage criteria
+
+- **Validated:** a reproducible benign simulation generated endpoint telemetry and a preserved Wazuh detection or hunt result.
+- **Preserved negative control:** a similar benign action was tested and evidence shows the detection-specific condition did not alert.
+- **Gap documented:** the positive result exists, but a separate negative-control artifact was not preserved; this is not treated as a negative-test pass.
+- **Planned:** a directory or roadmap entry exists, but no completed README supports a coverage claim.
+
+## Recommended next milestone
+
+Complete T1003.001, T1070, T1486, T1548.002, and T1562.001, then build one correlated attack-chain study spanning initial access, execution, credential access, lateral movement, defense evasion, and impact. This produces more portfolio value than completing every remaining discovery technique.

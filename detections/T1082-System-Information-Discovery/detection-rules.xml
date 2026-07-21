@@ -1,0 +1,11 @@
+<group name="windows,sysmon,mitre,custom,">
+  <rule id="100201" level="8">
+    <if_group>sysmon_event1</if_group>
+    <field name="win.eventdata.image" type="pcre2">(?i)\(systeminfo|hostname)\.exe$</field>
+    <description>MITRE T1082 - System information discovery tool executed</description>
+    <mitre>
+      <id>T1082</id>
+    </mitre>
+    <group>discovery,system_information_discovery,</group>
+  </rule>
+</group>

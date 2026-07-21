@@ -406,7 +406,7 @@ Help-only executions of netsh, nbtstat, and net did not trigger the custom rules
 | `25-positive-t1016-net-config-rule-100182.json` | Raw net config alert |
 | `26-t1016-cleanup-validation.png` | Missing cleanup screenshot |
 
-## Reproduction and references
+## Reproduction
 
 The validated procedure is included in [`T1016-Network-Discovery-Lab-Runbook.md`](T1016-Network-Discovery-Lab-Runbook.md).
 

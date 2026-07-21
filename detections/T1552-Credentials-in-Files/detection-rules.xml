@@ -1,0 +1,11 @@
+<group name="windows,sysmon,mitre,custom_sysmon,">
+  <rule id="100220" level="11">
+    <if_group>sysmon_event1</if_group>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)(findstr(\.exe)?.*(password|passwd|pwd|secret|token|apikey)|Select-String.*(password|passwd|pwd|secret|token|apikey)|dir.*(passwords?|credentials?|secrets?))</field>
+    <description>MITRE T1552 - Credential material searched from files or command output</description>
+    <mitre>
+      <id>T1552</id>
+    </mitre>
+    <group>credential_access,credentials_in_files,</group>
+  </rule>
+</group>

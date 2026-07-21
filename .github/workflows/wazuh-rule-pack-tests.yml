@@ -1,0 +1,25 @@
+name: Wazuh rule-pack tests
+
+on:
+  push:
+    paths:
+      - "wazuh/rule-pack/**"
+      - ".github/workflows/wazuh-rule-pack-tests.yml"
+  pull_request:
+    paths:
+      - "wazuh/rule-pack/**"
+      - ".github/workflows/wazuh-rule-pack-tests.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run portable Wazuh rule-pack tests
+        shell: pwsh
+        run: ./wazuh/rule-pack/tests/Test-WazuhRulePack.ps1

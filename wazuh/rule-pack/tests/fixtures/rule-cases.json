@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0",
+  "cases": [
+    {
+      "name": "T1047 positive - WMI command interpreter",
+      "parent_sids": [92069],
+      "groups": ["sysmon_event1"],
+      "fields": { "win.eventdata.originalFileName": "Cmd.Exe" },
+      "expect_match": [110101],
+      "expect_not_match": []
+    },
+    {
+      "name": "T1047 negative - WMI benign child",
+      "parent_sids": [92069],
+      "groups": ["sysmon_event1"],
+      "fields": { "win.eventdata.originalFileName": "hostname.exe" },
+      "expect_match": [],
+      "expect_not_match": [110101]
+    },
+    {
+      "name": "T1053.005 positive - PowerShell task action",
+      "parent_sids": [60228],
+      "groups": ["windows"],
+      "fields": { "win.eventdata.taskContent": "<Command>C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe</Command>" },
+      "expect_match": [110102],
+      "expect_not_match": []
+    },
+    {
+      "name": "T1053.005 negative - native hostname action",
+      "parent_sids": [60228],
+      "groups": ["windows"],
+      "fields": { "win.eventdata.taskContent": "<Command>C:\\Windows\\System32\\hostname.exe</Command>" },
+      "expect_match": [],
+      "expect_not_match": [110102]
+    },
+    {
+      "name": "T1078 positive - Secondary Logon explicit credentials",
+      "parent_sids": [60103],
+      "groups": ["windows"],
+      "fields": { "win.system.eventID": "4648", "win.eventdata.processName": "C:\\Windows\\System32\\svchost.exe" },
+      "expect_match": [110103],
+      "expect_not_match": []
+    },
+    {
+      "name": "T1078 negative - routine LSASS 4648",
+      "parent_sids": [60103],
+      "groups": ["windows"],
+      "fields": { "win.system.eventID": "4648", "win.eventdata.processName": "C:\\Windows\\System32\\lsass.exe" },
+      "expect_match": [],
+      "expect_not_match": [110103]
+    },
+    {
+      "name": "T1082 positive - systeminfo",
+      "parent_sids": [],
+      "groups": ["sysmon_event1"],
+      "fields": { "win.eventdata.originalFileName": "systeminfo.exe" },
+      "expect_match": [110104],
+      "expect_not_match": []
+    },
+    {
+      "name": "T1082 negative - whoami",
+      "parent_sids": [],
+      "groups": ["sysmon_event1"],
+      "fields": { "win.eventdata.originalFileName": "whoami.exe" },
+      "expect_match": [],
+      "expect_not_match": [110104]
+    },
+    {
+      "name": "T1547 and T1112 positive - interpreter Run key",
+      "parent_sids": [92300],
+      "groups": ["sysmon_event13"],
+      "fields": { "win.eventdata.details": "C:\\Windows\\System32\\cmd.exe /c exit" },
+      "expect_match": [110105, 110106],
+      "expect_not_match": []
+    },
+    {
+      "name": "T1547 and T1112 negative - native benign Run key",
+      "parent_sids": [92300],
+      "groups": ["sysmon_event13"],
+      "fields": { "win.eventdata.details": "C:\\Windows\\System32\\notepad.exe" },
+      "expect_match": [],
+      "expect_not_match": [110105, 110106]
+    },
+    {
+      "name": "T1552 positive - findstr credential keyword",
+      "parent_sids": [],
+      "groups": ["sysmon_event1"],
+      "fields": { "win.eventdata.commandLine": "findstr.exe /s /i /n password C:\\ProgramData\\T1552-Portfolio-Lab\\*.txt" },
+      "expect_match": [110107],
+      "expect_not_match": []
+    },
+    {
+      "name": "T1552 negative - findstr healthy status",
+      "parent_sids": [],
+      "groups": ["sysmon_event1"],
+      "fields": { "win.eventdata.commandLine": "findstr.exe /s /i /n status C:\\ProgramData\\T1552-Portfolio-Lab\\*.txt" },
+      "expect_match": [],
+      "expect_not_match": [110107]
+    },
+    {
+      "name": "Dependency negative - matching field without required parent",
+      "parent_sids": [],
+      "groups": ["sysmon_event1"],
+      "fields": { "win.eventdata.originalFileName": "Cmd.Exe" },
+      "expect_match": [],
+      "expect_not_match": [110101]
+    },
+    {
+      "name": "Group negative - systeminfo outside Sysmon process group",
+      "parent_sids": [],
+      "groups": ["windows"],
+      "fields": { "win.eventdata.originalFileName": "systeminfo.exe" },
+      "expect_match": [],
+      "expect_not_match": [110104]
+    }
+  ]
+}

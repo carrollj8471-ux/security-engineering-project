@@ -1,0 +1,80 @@
+<!--
+  Security Engineering Lab Wazuh Rule Pack
+  rule-pack-version: 0.1.0
+  custom-id-range: 110100-110199
+  validated-against: Wazuh 4.14.6
+-->
+<group name="security_engineering_lab,windows,mitre,">
+
+  <rule id="110101" level="8">
+    <if_sid>92069</if_sid>
+    <field name="win.eventdata.originalFileName" type="pcre2">(?i)^Cmd\.Exe$</field>
+    <description>WMI spawned a Windows command interpreter</description>
+    <mitre>
+      <id>T1047</id>
+    </mitre>
+    <group>wmi,execution,</group>
+  </rule>
+
+  <rule id="110102" level="8">
+    <if_sid>60228</if_sid>
+    <field name="win.eventdata.taskContent" type="pcre2">(?i)(cmd\.exe|powershell\.exe|pwsh\.exe|wscript\.exe|cscript\.exe)</field>
+    <description>Scheduled task created with command or script interpreter</description>
+    <mitre>
+      <id>T1053.005</id>
+    </mitre>
+    <group>scheduled_task,execution,persistence,privilege_escalation,</group>
+  </rule>
+
+  <rule id="110103" level="8">
+    <if_sid>60103</if_sid>
+    <field name="win.system.eventID" type="pcre2">^4648$</field>
+    <field name="win.eventdata.processName" type="pcre2">(?i)\\(runas|svchost)\.exe$</field>
+    <description>Explicit credentials used through Windows RunAs or Secondary Logon service</description>
+    <mitre>
+      <id>T1078</id>
+    </mitre>
+    <group>valid_accounts,explicit_credentials,authentication,</group>
+  </rule>
+
+  <rule id="110104" level="8">
+    <if_group>sysmon_event1</if_group>
+    <field name="win.eventdata.originalFileName" type="pcre2">(?i)^(systeminfo|hostname)\.exe$</field>
+    <description>System information discovery utility executed</description>
+    <mitre>
+      <id>T1082</id>
+    </mitre>
+    <group>discovery,system_information_discovery,</group>
+  </rule>
+
+  <rule id="110105" level="8">
+    <if_sid>92300</if_sid>
+    <field name="win.eventdata.details" type="pcre2">(?i)(cmd|powershell|pwsh|wscript|cscript|mshta|rundll32|regsvr32)\.exe</field>
+    <description>Registry Run key configured to launch a command or script interpreter</description>
+    <mitre>
+      <id>T1547.001</id>
+    </mitre>
+    <group>registry_run_keys,persistence,privilege_escalation,</group>
+  </rule>
+
+  <rule id="110106" level="10">
+    <if_sid>110105</if_sid>
+    <description>Registry Run key modified with an interpreter-based value</description>
+    <mitre>
+      <id>T1112</id>
+      <id>T1547.001</id>
+    </mitre>
+    <group>modify_registry,registry_run_keys,defense_evasion,</group>
+  </rule>
+
+  <rule id="110107" level="11">
+    <if_group>sysmon_event1</if_group>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)(findstr(\.exe)?.*(password|passwd|pwd|secret|token|apikey)|Select-String.*(password|passwd|pwd|secret|token|apikey)|dir.*(passwords?|credentials?|secrets?))</field>
+    <description>Credential-oriented search of files or command output</description>
+    <mitre>
+      <id>T1552.001</id>
+    </mitre>
+    <group>credential_access,credentials_in_files,</group>
+  </rule>
+
+</group>
