@@ -10,15 +10,15 @@ This guide describes the target environment assumed by the detection engineering
 |---|---| 
 
 | Windows Server 2022 Domain Controller |
-  - Active Directory, DNS, and domain policy |
+| Active Directory, DNS, and domain policy |
 
 | Windows 11 Workstation | Endpoint test system |
-  - Sysmon | Endpoint process, file, registry, and network telemetry |
-  - Wazuh Agent | Log forwarding from Windows endpoints | Atomic Red Team |
+| Sysmon | Endpoint process, file, registry, and network telemetry |
+| Wazuh Agent | Log forwarding from Windows endpoints | Atomic Red Team |
 
 |Ubuntu VM |
-  - Wazuh Manager | SIEM ingestion, indexing, alerting, and threat hunting |
-  - Safe ATT&CK-aligned test execution |
+| Wazuh Manager | SIEM ingestion, indexing, alerting, and threat hunting |
+| Safe ATT&CK-aligned test execution |
 
 ## Build Notes
 
