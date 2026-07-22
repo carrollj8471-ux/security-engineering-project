@@ -1,0 +1,51 @@
+<!--
+  T1548.002 - Bypass User Account Control
+
+  Deployment notes:
+  - Confirm that IDs 100226-100228 are unused on the manager.
+  - Rule 100226 keys from Sysmon Event 13 registry value data.
+  - Rule 100227 extends Wazuh's built-in Sysmon UAC-broker rule 92055.
+  - Rule 100228 keys from Windows Security 4688 process creation rule 67027.
+  - Wazuh normalizes HKCU\Software\Classes as HKU\<sid>_Classes in alerts.
+-->
+<group name="windows,sysmon,uac_bypass,privilege_escalation,mitre,">
+
+  <!-- High-signal registry precondition used by ms-settings auto-elevation abuse. -->
+  <rule id="100226" level="12">
+    <if_group>sysmon_event_13</if_group>
+    <field name="win.eventdata.targetObject"
+           type="pcre2">(?i)(SOFTWARE\\\\CLASSES|_CLASSES)\\\\MS-SETTINGS\\\\SHELL\\\\OPEN\\\\COMMAND</field>
+    <description>UAC bypass registry precondition created for the ms-settings handler</description>
+    <mitre>
+      <id>T1548.002</id>
+      <id>T1112</id>
+    </mitre>
+    <group>registry,uac_bypass_precondition,modify_registry,</group>
+  </rule>
+
+  <!-- Context signal only: auto-elevated broker execution can be legitimate. -->
+  <rule id="100227" level="6">
+    <if_sid>92055</if_sid>
+    <description>Windows auto-elevated broker process executed</description>
+    <group>uac_auto_elevated_binary,</group>
+  </rule>
+
+  <!-- Decisive execution signal: an auto-elevated broker spawned a full-token interpreter. -->
+  <rule id="100228" level="12">
+    <if_sid>67027</if_sid>
+    <field name="win.eventdata.parentProcessName"
+           type="pcre2">(?i)(fodhelper|computerdefaults|eventvwr|sdclt)\.exe$</field>
+    <field name="win.eventdata.newProcessName"
+           type="pcre2">(?i)(cmd|powershell|pwsh|wscript|cscript|mshta|rundll32|regsvr32)\.exe$</field>
+    <field name="win.eventdata.mandatoryLabel"
+           type="pcre2">S-1-16-12288</field>
+    <field name="win.eventdata.tokenElevationType"
+           type="pcre2">%%1937</field>
+    <description>Auto-elevated Windows broker spawned a high-integrity interpreter</description>
+    <mitre>
+      <id>T1548.002</id>
+    </mitre>
+    <group>uac_bypass_execution,elevated_interpreter,</group>
+  </rule>
+
+</group>
