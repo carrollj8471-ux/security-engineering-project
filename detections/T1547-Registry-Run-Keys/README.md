@@ -97,7 +97,7 @@ The final detection required several iterations. These steps are included becaus
 | 3 | Standalone rule `100140` did not match | Inspected decoded archive fields and adjusted path escaping | Fresh events still did not produce the intended chain |
 | 4 | Ruleset warnings referenced `sysmon_event13` | Inspected the built-in Event ID `13` rule | Found the correct group name `sysmon_event_13` and separated unrelated invalid rules from this analytic |
 | 5 | Built-in rule `92300` already identified Run/RunOnce paths at level 0 | Replaced the duplicate baseline with a child rule | Reused the rule branch that had already established Run-key context |
-| 6 | The details regex needed to match the decoded executable text | Used `\.exe` in PCRE2 rather than matching a literal backslash | Fresh validation generated rule `100141` |
+| 6 | The details regex needed to match the decoded executable text | Used `.exe` in PCRE2 rather than matching a literal backslash | Fresh validation generated rule `100141` |
 | 7 | A positive result needed precision testing | Created a Run value containing only `notepad.exe` | Event was archived but no elevated alert fired |
 
 Pre-existing warnings for duplicate rule IDs `100201`–`100210` and invalid groups used by rules `100212` and `100214` were recorded separately. They were not presented as the cause of this detection gap.

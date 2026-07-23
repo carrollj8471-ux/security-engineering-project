@@ -281,7 +281,7 @@ Sysmon and Wazuh successfully preserved the original PowerShell event, but no de
 
 ### 2. Exact filename matching materially improved fidelity
 
-The expression `cmd\.exe$` was too broad because `dsregcmd.exe` shared the same suffix. Matching the anchored `OriginalFileName` value separated actual Command Prompt execution from an unrelated signed Windows utility.
+The expression `cmd.exe$` was too broad because `dsregcmd.exe` shared the same suffix. Matching the anchored `OriginalFileName` value separated actual Command Prompt execution from an unrelated signed Windows utility.
 
 ### 3. Positive and negative tests were both necessary
 

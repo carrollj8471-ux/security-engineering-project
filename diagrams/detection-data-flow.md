@@ -4,11 +4,11 @@
 
 ```mermaid
 flowchart TB
-    Start["1 · Define hypothesis\nexpected behavior + control"]
-    Sim["2 · Execute bounded simulation\non WIN11"]
+    Start["1 · Define hypothesis<br/>expected behavior + control"]
+    Sim["2 · Execute bounded simulation<br/>on WIN11"]
 
     subgraph Endpoint["Endpoint collection boundary"]
-        Event["3 · Windows creates event\nSysmon · Security · PowerShell"]
+        Event["3 · Windows creates event<br/>Sysmon · Security · PowerShell"]
         LocalCheck{"Local event present?"}
         Agent["4 · Wazuh agent forwards EventChannel record"]
         Event --> LocalCheck
@@ -17,10 +17,10 @@ flowchart TB
 
     subgraph Manager["Wazuh processing boundary"]
         Decode["5 · Decode and normalize fields"]
-        Archive["6a · Raw archive\ncollection evidence"]
+        Archive["6a · Raw archive<br/>collection evidence"]
         Evaluate["6b · Rule hierarchy evaluates event"]
         Match{"Intended analytic matched?"}
-        Alert["7 · Alert/index record\nrule · severity · ATT&CK"]
+        Alert["7 · Alert/index record<br/>rule · severity · ATT&CK"]
 
         Decode --> Archive
         Decode --> Evaluate --> Match
@@ -28,12 +28,12 @@ flowchart TB
     end
 
     subgraph Analysis["Analyst and evidence boundary"]
-        Hunt["8 · Hunt and correlate\nuser · parent · command · host · time"]
+        Hunt["8 · Hunt and correlate<br/>user · parent · command · host · time"]
         Disposition{"Expected outcome?"}
-        Evidence["9 · Preserve evidence\nevent IDs · queries · screenshots · JSON"]
-        Response["10 · Triage · scope · contain\neradicate · recover"]
-        Register["11 · Update lifecycle register\nFP · blind spot · tuning · response"]
-        Case["12 · Publish case study\ncoverage matrix · metrics"]
+        Evidence["9 · Preserve evidence<br/>event IDs · queries · screenshots · JSON"]
+        Response["10 · Triage · scope · contain<br/>eradicate · recover"]
+        Register["11 · Update lifecycle register<br/>FP · blind spot · tuning · response"]
+        Case["12 · Publish case study<br/>coverage matrix · metrics"]
 
         Hunt --> Disposition
         Disposition -->|"True positive / expected test"| Evidence
@@ -43,10 +43,10 @@ flowchart TB
     end
 
     subgraph Engineering["Detection feedback loop"]
-        Diagnose["Separate collection, decoding,\nrule evaluation, and indexing"]
-        Tune["Version tuning decision\nlogic · hierarchy · severity · exclusions"]
+        Diagnose["Separate collection, decoding,<br/>rule evaluation, and indexing"]
+        Tune["Version tuning decision<br/>logic · hierarchy · severity · exclusions"]
         Syntax["Validate syntax and dependencies"]
-        Retest["Generate fresh positive test\nand comparable negative control"]
+        Retest["Generate fresh positive test<br/>and comparable negative control"]
         Diagnose --> Tune --> Syntax --> Retest
     end
 

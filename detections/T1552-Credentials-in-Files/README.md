@@ -98,7 +98,7 @@ Sysmon Event `1`, record `24074`, retained the evidence required to reconstruct 
 | Field | Observed value |
 |---|---|
 | Image | `C:\Windows\System32\findstr.exe` |
-| Command line | `findstr.exe /s /i /n "password secret token" C:\ProgramData\T1552-Portfolio-Lab\*.txt` |
+| Command line | `findstr.exe /s /i /n "password secret token" C:\ProgramData\T1552-Portfolio-Lab*.txt` |
 | Parent image | `C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe` |
 | User | `CORP\Administrator` |
 | Integrity level | High |

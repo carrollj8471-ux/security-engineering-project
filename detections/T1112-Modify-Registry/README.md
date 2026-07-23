@@ -10,7 +10,7 @@ A temporary HKCU Run-key value generated Sysmon Event ID `13`. After repairing t
 |---|---|
 | Endpoint | `WIN11.corp.local` |
 | User | `CORP\Administrator` |
-| Positive target | `HKCU\...\CurrentVersion\Run\T1112PortfolioValidation` |
+| Positive target | `HKCU...\CurrentVersion\Run\T1112PortfolioValidation` |
 | Benign data | `C:\Windows\System32\cmd.exe /c exit` |
 | Primary telemetry | Sysmon Event ID `13` |
 | Positive record | `24052` |

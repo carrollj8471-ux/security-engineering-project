@@ -4,28 +4,28 @@
 
 ```mermaid
 flowchart LR
-    Analyst["Security engineer\nVMware host"]
+    Analyst["Security engineer<br/>VMware host"]
 
     subgraph Lab["Trust boundary: isolated VMware network — 192.168.232.0/24"]
         direction LR
 
         subgraph Identity["Identity services"]
-            DC["DC01\nActive Directory · DNS · Group Policy"]
+            DC["DC01<br/>Active Directory · DNS · Group Policy"]
         end
 
         subgraph Endpoint["Monitored endpoint"]
-            WIN["WIN11.corp.local\nDomain member"]
-            Sources["Sysmon · Security · PowerShell\nWindows EventChannel"]
+            WIN["WIN11.corp.local<br/>Domain member"]
+            Sources["Sysmon · Security · PowerShell<br/>Windows EventChannel"]
             Agent["Wazuh agent 002"]
             WIN --> Sources --> Agent
         end
 
         subgraph SIEM["Wazuh security platform — 192.168.232.20"]
-            Manager["Manager\nDecode · correlate · evaluate rules"]
-            Archive["Raw event archive\narchives.json"]
-            AlertStore["Alert store / index\nalerts.json + indexed alerts"]
-            Dashboard["Wazuh dashboard\nThreat hunting"]
-            Rules["Versioned local rules\nATT&CK mappings"]
+            Manager["Manager<br/>Decode · correlate · evaluate rules"]
+            Archive["Raw event archive<br/>archives.json"]
+            AlertStore["Alert store / index<br/>alerts.json + indexed alerts"]
+            Dashboard["Wazuh dashboard<br/>Threat hunting"]
+            Rules["Versioned local rules<br/>ATT&CK mappings"]
 
             Manager --> Archive
             Manager --> AlertStore --> Dashboard
@@ -37,8 +37,8 @@ flowchart LR
     end
 
     subgraph Evidence["Trust boundary: engineering evidence"]
-        Repo["Git repository\nRules · runbooks · JSON · screenshots"]
-        Metrics["Coverage matrix\nLifecycle metrics · decision register"]
+        Repo["Git repository<br/>Rules · runbooks · JSON · screenshots"]
+        Metrics["Coverage matrix<br/>Lifecycle metrics · decision register"]
         Repo --> Metrics
     end
 

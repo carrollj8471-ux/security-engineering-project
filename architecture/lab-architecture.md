@@ -26,10 +26,10 @@ The VMs use a private VMware network in `192.168.232.0/24`. Observed lab address
 
 ```mermaid
 flowchart TB
-    Host["Analyst / VMware Host\n192.168.232.1"]
-    DC["DC01\nActive Directory + DNS"]
-    Win["WIN11.corp.local\nWazuh Agent 002"]
-    Wazuh["wazuh-manager\n192.168.232.20"]
+    Host["Analyst / VMware Host<br/>192.168.232.1"]
+    DC["DC01<br/>Active Directory + DNS"]
+    Win["WIN11.corp.local<br/>Wazuh Agent 002"]
+    Wazuh["wazuh-manager<br/>192.168.232.20"]
 
     Host -->|"VM console, SSH, VNC"| DC
     Host -->|"VM console, PowerShell"| Win
