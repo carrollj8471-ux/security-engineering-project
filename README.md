@@ -10,7 +10,7 @@ An end-to-end enterprise security engineering lab: design, deploy, harden, monit
 
 > **TL;DR** — A full enterprise AD environment (Server 2022, Windows 11, Ubuntu, Wazuh, Sysmon) covering identity, endpoint security, monitoring, detection engineering, governance, and incident response — the capstone that ties the portfolio together.
 
-> 🛰️ **Companion program:** this lab is operationalized as a full senior-level program in **[Enterprise Detection Engineering & Security Operations Transformation](../enterprise-detection-engineering-program/README.md)** — a two-package (Engineering + Leadership) build that wraps these detections in an operating model, cost/risk tradeoffs, and executive reporting under real constraints. *(Sibling folder; if hosted as a separate GitHub repo, link to that repo instead.)*
+> 🛰️ **Companion programs:** this lab is operationalized into two senior-level programs on the same Northwind / `corp.local` estate — **[Enterprise Detection Engineering & Security Operations Transformation](https://github.com/carrollj8471-ux/enterprise-detection-engineering-program)** (detection-as-code, SOC operating model, cost/risk tradeoffs, executive reporting) and **[Enterprise Zero Trust Identity Modernization](https://github.com/carrollj8471-ux/zero-trust-identity-modernization)** (identity attack-path elimination, PAM, Conditional Access, governance). Together they read as one connected body of work.
 
 ---
 
